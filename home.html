@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiapp 95 Professional - Complete IT Management Tool Suite | 50+ Tools in One</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+            background: #faf9f8;
+            color: #323130;
+            line-height: 1.4;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header - Exact Microsoft Style */
+        header {
+            background: #ffffff;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #edebe9;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.11), 0 0.25rem 1rem rgba(0,0,0,.13);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            height: 54px;
+        }
+
+        .logo {
+            font-size: 15px;
+            font-weight: 600;
+            color: #0078d4;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #323130;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 14px;
+            padding: 16px 12px;
+            display: block;
+            transition: background-color 0.1s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover {
+            background: #f3f2f1;
+            color: #106ebe;
+        }
+
+        /* Microsoft Button Styles */
+        .ms-button-primary {
+            background: #0078d4;
+            border: 1px solid #0078d4;
+            color: #ffffff;
+            font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 2px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.1s ease, border-color 0.1s ease;
+            min-height: 32px;
+            line-height: 16px;
+        }
+
+        .ms-button-primary:hover {
+            background: #106ebe;
+            border-color: #106ebe;
+        }
+
+        .ms-button-primary:active {
+            background: #005a9e;
+            border-color: #005a9e;
+        }
+
+        /* Hero Section - Microsoft Style */
+        .hero {
+            padding: 100px 0 60px;
+            text-align: left;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-text h1 {
+            font-size: 40px;
+            font-weight: 600;
+            color: #323130;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .hero-text .highlight {
+            color: #0078d4;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            color: #605e5c;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .hero-visual {
+            background: linear-gradient(135deg, #0078d4 0%, #40e0d0 100%);
+            height: 300px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            font-weight: 300;
+        }
+
+        /* Microsoft Card System */
+        .ms-card {
+            background: #ffffff;
+            border: 1px solid #edebe9;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.11);
+            transition: all 0.2s ease;
+        }
+
+        .ms-card:hover {
+            box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,.22);
+            transform: translateY(-2px);
+        }
+
+        .ms-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #323130;
+            margin-bottom: 12px;
+        }
+
+        .ms-card p {
+            color: #605e5c;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Sections */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-alt {
+            background: #ffffff;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: #323130;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #605e5c;
+            text-align: center;
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Stats Section - Microsoft Fluent Style */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .stat-card {
+            text-align: center;
+            background: #ffffff;
+            padding: 32px 16px;
+            border-radius: 8px;
+            border: 1px solid #edebe9;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 300;
+            color: #0078d4;
+            display: block;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #605e5c;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        /* Use Cases Cards */
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .use-case-card {
+            background: #ffffff;
+            border: 1px solid #edebe9;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .use-case-card:hover {
+            border-color: #0078d4;
+            box-shadow: 0 4px 8px rgba(0,120,212,0.15);
+        }
+
+        .use-case-icon {
+            width: 48px;
+            height: 48px;
+            background: #0078d4;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        /* Microsoft List Styles */
+        .ms-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ms-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #605e5c;
+        }
+
+        .ms-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #0078d4;
+            font-weight: bold;
+        }
+
+        /* Tech Stack Pills */
+        .tech-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 32px;
+        }
+
+        .tech-pill {
+            background: #f3f2f1;
+            color: #323130;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid #edebe9;
+            transition: all 0.2s ease;
+        }
+
+        .tech-pill:hover {
+            background: #0078d4;
+            color: #ffffff;
+            border-color: #0078d4;
+        }
+
+        /* Requirements Section */
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .req-card {
+            background: #ffffff;
+            border-left: 4px solid #0078d4;
+            border: 1px solid #edebe9;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .req-card h4 {
+            color: #0078d4;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        /* Warning Box - Microsoft Style */
+        .ms-messagebar {
+            background: #fff4ce;
+            border: 1px solid #ffb900;
+            border-left: 4px solid #ffb900;
+            border-radius: 4px;
+            padding: 12px 16px;
+            margin: 24px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .ms-messagebar-icon {
+            color: #797775;
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        .ms-messagebar-text {
+            color: #323130;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Installation Section */
+        .installation-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .step-card {
+            background: #ffffff;
+            border: 1px solid #edebe9;
+            border-radius: 8px;
+            padding: 24px;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: #0078d4;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .step-card h3 {
+            color: #0078d4;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            margin-top: 8px;
+        }
+
+        /* What You Get Box */
+        .benefits-box {
+            background: linear-gradient(135deg, #0078d4 0%, #40e0d0 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .benefits-box h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .benefit-check {
+            color: #92c5f4;
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        /* Footer - Microsoft Style */
+        footer {
+            background: #f3f2f1;
+            padding: 48px 0 24px;
+            border-top: 1px solid #edebe9;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .footer-section h4 {
+            color: #323130;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #605e5c;
+            text-decoration: none;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: #0078d4;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid #edebe9;
+            color: #605e5c;
+            font-size: 12px;
+        }
+
+        .footer-highlight {
+            color: #0078d4;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .use-cases-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-text h1 {
+                font-size: 28px;
+            }
+            
+            .hero-text p {
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .use-cases-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .hero {
+                padding: 80px 0 40px;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Microsoft Fluent Animations */
+        .ms-motion-slideUpIn {
+            animation: slideUpIn 0.6s cubic-bezier(0.1, 0.9, 0.2, 1);
+        }
+
+        @keyframes slideUpIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-link {
+            color: #0078d4;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .btn-link:hover {
+            color: #106ebe;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#home" class="logo">Multiapp 95 Professional</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#tech">Technology</a></li>
+                <li><a href="#requirements">Requirements</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1><span class="highlight">Multiapp 95</span> Professional</h1>
+                    <p>The ultimate productivity and efficiency suite designed specifically for IT support departments. Revolutionary software combining over 50+ professional tools into a single, powerful executable file, streamlining various IT tasks from system monitoring to file management, network diagnostics, development tools, and advanced AI-powered productivity features.</p>
+                    <a href="#features" class="ms-button-primary">Discover Features</a>
+                </div>
+                <div class="hero-visual">
+                    50+ Tools
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Performance Benefits & Advantages</h2>
+            <p class="section-subtitle">Comprehensive metrics showcasing the power and efficiency of Multiapp 95 Professional</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Professional Tools</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">20%</span>
+                    <span class="stat-label">Faster File Operations</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">500MB</span>
+                    <span class="stat-label">Single File Size</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">0</span>
+                    <span class="stat-label">Required Installations</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Romanian AI Support</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">x64</span>
+                    <span class="stat-label">Architecture Only</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Use Cases -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Professional Use Cases</h2>
+            <p class="section-subtitle">Designed for diverse professional environments and specialized IT workflows</p>
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <div class="use-case-icon">🛠</div>
+                    <h3>IT Support Departments</h3>
+                    <p>Comprehensive diagnostic and task automation tools for efficient support operations and system maintenance. Perfect for help desk teams and technical support professionals.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">⚙</div>
+                    <h3>System Administrators</h3>
+                    <p>Advanced monitoring and management capabilities for server infrastructure and network administration. Complete tools for system oversight and maintenance.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">💻</div>
+                    <h3>Developers</h3>
+                    <p>Complete Python IDE, database management tools, and development environment with debugging support. Everything needed for professional software development.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">📊</div>
+                    <h3>Office Professionals</h3>
+                    <p>Office Lite suite with document reading, spreadsheet editing, and comprehensive productivity tools for daily business operations.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">🌐</div>
+                    <h3>Network Engineers</h3>
+                    <p>Advanced network analysis, monitoring, port scanning, and traffic analysis for network optimization and troubleshooting.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">🔒</div>
+                    <h3>Security Teams</h3>
+                    <p>Military-grade encryption, password management, and comprehensive security tools for data protection and system security.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section">
+        <div class="container">
+            <h2 class="section-title">Comprehensive Feature Set</h2>
+            <p class="section-subtitle">Over 50 integrated professional tools designed for maximum productivity and efficiency</p>
+            <div class="features-grid">
+                <div class="ms-card">
+                    <h3>System & Diagnostic Tools</h3>
+                    <p>Complete system management suite including system compatibility testing, hardware diagnostics & monitoring, disk utility visualizer, network troubleshooting, IT process automation, advanced terminal emulator, performance optimization, alert monitor, event viewer, manual & automatic repair tool for Multiapp, XML editor for Config, real-time system information, task manager, process viewer, and Multiapp dashboard for essential information.</p>
+                </div>
+                <div class="ms-card">
+                    <h3>File Management Pro Tools</h3>
+                    <p>Professional file management capabilities with smart backup tool, advanced files & folders comparator, ZIP password recovery & maker, intelligent file organizer, Explorer mode, Copy App with network file copying, rename utility, file archeologist, archive management, file history tools, File Fisher searching, and Recovery Tunnel for advanced file recovery.</p>
+                </div>
+                <div class="ms-card">
+                    <h3>Security Suite</h3>
+                    <p>Enterprise-grade security tools featuring military-grade file encryption, advanced password manager & generation tools, multi-level authentication system, terminal access restrictions, multiple password generators (Basic & Advanced V2), password storage and management, file encryption and security tools, ZIP password recovery, and safety tool for vulnerability avoidance.</p>
+                </div>
+                <div class="ms-card">
+                    <h3>Office Suite Lite</h3>
+                    <p>Comprehensive office productivity suite with Office document reader for Word, PowerPoint & Excel, spreadsheet editor with formula support (SUM, AVERAGE, MIN, MAX, COUNT, PRODUCT, MEDIAN, CONCAT), PDF tools suite with encryption, image extraction, page manipulation, PDF to Word conversion, PDF viewer, paint app & whiteboard, and find & replace text tool.</p>
+                </div>
+                <div class="ms-card">
+                    <h3>Development Tools</h3>
+                    <p>Complete development environment featuring full-featured Python IDE, advanced text editor with syntax highlighting, Markdown viewer, SQLite editor & reader with query tools, script agent for automation, multi file editor for configurations, project management capabilities, and syntax highlighting for multiple programming languages.</p>
+                </div>
+                <div class="ms-card">
+                    <h3>AI & Productivity</h3>
+                    <p>Advanced AI-powered productivity suite with AI chatbot (95% Romanian language support), quick file finder, smart calendar & scheduling, task manager system, knowledge base system (Standard & Retro), account launcher & manager, workflow automation, pause manager for teams, screen recorder app, visual diagram creator, expense tracker with reporting, quiz creation and testing, clipboard history and contacts manager.</p>
+                </div>
+                <div class="ms-card">
+                    <h3>Network & Connectivity Tools</h3>
+                    <p>Professional networking suite including network information display, network topology, network monitoring, port scanner, ping tool, network console with Wi-Fi password recovery, bandwidth monitoring with real-time graphs, device status listener, network traffic monitoring, and connection quality testing.</p>
+                </div>
+                <div class="ms-card">
+                    <h3>Portable Application</h3>
+                    <p>Revolutionary deployment model with single executable requiring no installation, runs from anywhere (USB, network), automatic compatibility check, all features unlocked immediately, no external dependencies, optimized architecture with precompiled paths, direct bit allocation, and 18.8% - 20% faster copying files performance compared to traditional methods.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="tech" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Technology Stack & Architecture</h2>
+            <p class="section-subtitle">Built with cutting-edge technologies for optimal performance and reliability</p>
+            <div class="tech-pills">
+                <div class="tech-pill">Python</div>
+                <div class="tech-pill">C++</div>
+                <div class="tech-pill">Windows x64 Only</div>
+                <div class="tech-pill">Single executable</div>
+                <div class="tech-pill">Precompiled paths</div>
+                <div class="tech-pill">Direct bit allocation</div>
+                <div class="tech-pill">Optimized architecture</div>
+                <div class="tech-pill">No installer needed</div>
+                <div class="tech-pill">Portable deployment</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requirements -->
+    <section id="requirements" class="section">
+        <div class="container">
+            <h2 class="section-title">System Requirements</h2>
+            <div class="ms-messagebar">
+                <span class="ms-messagebar-icon">⚠</span>
+                <div class="ms-messagebar-text">Important Notice: This software is designed exclusively for x64 (64-bit) systems</div>
+            </div>
+            <div class="requirements-grid">
+                <div class="req-card">
+                    <h4>Minimum Requirements</h4>
+                    <ul class="ms-list">
+                        <li>x64 (64-bit) Processor 1-2 GHz (Required)</li>
+                        <li>Windows 10 (build 1903+) or Windows 11</li>
+                        <li>Intel i3 or AMD equivalent</li>
+                        <li>4GB RAM minimum</li>
+                        <li>500MB free disk space</li>
+                        <li>Administrator privileges for full functionality</li>
+                        <li>Internet connection for AI features and updates</li>
+                        <li>100% zoom recommended (especially for laptops)</li>
+                    </ul>
+                </div>
+                <div class="req-card">
+                    <h4>Recommended Specifications</h4>
+                    <ul class="ms-list">
+                        <li>Intel Core i5 or AMD Ryzen 5 (or equivalent)</li>
+                        <li>8GB-16GB RAM (16GB for heavy development)</li>
+                        <li>SSD for faster file operations</li>
+                        <li>1920x1080+ resolution</li>
+                        <li>Proper network permissions for file copying</li>
+                        <li>Updated graphics drivers</li>
+                    </ul>
+                </div>
+                <div class="req-card">
+                    <h4>Built-in Features</h4>
+                    <ul class="ms-list">
+                        <li>Automatic compatibility checker</li>
+                        <li>No installation required</li>
+                        <li>Fully portable application</li>
+                        <li>All features unlocked immediately</li>
+                        <li>No external dependencies</li>
+                        <li>Self-healing repair capabilities</li>
+                        <li>Display optimization for laptops</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation & Setup Guide -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Installation & Setup Guide</h2>
+            
+            <div class="benefits-box">
+                <h3>What You Get</h3>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <span class="benefit-check">✓</span>
+                        <span>Single executable file - no installer needed</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-check">✓</span>
+                        <span>Portable application - run from anywhere</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-check">✓</span>
+                        <span>All features unlocked immediately</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-check">✓</span>
+                        <span>No additional dependencies required</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="installation-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Download</h3>
+                    <ul class="ms-list">
+                        <li>Download the MP95 x64.exe file (<a href="https://mega.nz/file/9QZGRKAZ#Khsk0MDxFJswAgrzCwpkvG7yJHGOHzJu7CRei32Y6CU" class="btn-link">Download Now</a>)</li>
+                        <li>File size: ~500MB</li>
+                        <li>Single executable file</li>
+                    </ul>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>System Check</h3>
+                    <ul class="ms-list">
+                        <li>Ensure x64 (64-bit) system</li>
+                        <li>Built-in compatibility checker</li>
+                        <li>Verify minimum requirements</li>
+                    </ul>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Display Configuration</h3>
+                    <ul class="ms-list">
+                        <li>Set zoom to 100% for best experience</li>
+                        <li>Adjust high DPI settings for laptops</li>
+                        <li>Configure scaling as needed</li>
+                    </ul>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>First Run</h3>
+                    <ul class="ms-list">
+                        <li>Run as Administrator (recommended)</li>
+                        <li>Built-in authentication system</li>
+                        <li>Explore features immediately</li>
+                    </ul>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <h3>Configuration Files</h3>
+                    <ul class="ms-list">
+                        <li>Accounts.txt - User account information</li>
+                        <li>paths.txt - Network or local paths for Copy App</li>
+                        <li>profiles.json - Equipment profiles for Copy App</li>
+                        <li>Config folder - XML configurations (xml/editor; if you want the checker instance to appear, modify the file tool_mark.inst95 with the value False)</li>
+                    </ul>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">6</div>
+                    <h3>Quick Start Tips</h3>
+                    <ul class="ms-list">
+                        <li>Use built-in help system</li>
+                        <li>AI chatbot can assist with questions</li>
+                        <li>Administrator privileges recommended</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Repair & Maintenance -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Repair & Maintenance</h2>
+            <p class="section-subtitle">Comprehensive troubleshooting and maintenance solutions for optimal performance</p>
+            <div class="features-grid">
+                <div class="ms-card">
+                    <h3>Automatic Repair (Fetcher)</h3>
+                    <p>Use the Fetcher - Repair Setup feature for automatic error correction and file restoration with comprehensive diagnostics. This tool can automatically detect and fix common issues.</p>
+                </div>
+                <div class="ms-card">
+                    <h3>Manual Repair (Shell Integrator)</h3>
+                    <p>Complete manual repair process with step-by-step commands for advanced troubleshooting and system restoration. Includes detailed command sequence for expert users.</p>
+                </div>
+                <div class="ms-card">
+                    <h3>Display Issues</h3>
+                    <p>Adjust DPI settings for high-resolution displays, set zoom to 100%, and update graphics drivers for optimal performance. Configure high DPI settings for laptops.</p>
+                </div>
+                <div class="ms-card">
+                    <h3>Performance Issues</h3>
+                    <p>Run as Administrator, close unnecessary applications, and ensure minimum system requirements are met. Monitor system resources for optimal performance.</p>
+                </div>
+                <div class="ms-card">
+                    <h3>Network Connectivity</h3>
+                    <p>Check internet connection for file operations and network tools, verify firewall settings, and ensure proper network permissions.</p>
+                </div>
+                <div class="ms-card">
+                    <h3>File Access Issues</h3>
+                    <p>Verify administrator privileges, check file permissions and ownership, ensure adequate disk space for operations and proper security settings.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Multiapp 95 Professional</h4>
+                    <p>The ultimate productivity and efficiency suite designed specifically for IT support departments. Revolutionary software combining over 50+ professional tools into a single, powerful executable file.</p>
+                    <p><strong>Version 0.95.0</strong></p>
+                    <p><span class="footer-highlight">Mission:</span> Revolutionize IT workflow management by providing an all-in-one solution that enhances productivity and streamlines operations.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact & Support</h4>
+                    <p><strong>Developer:</strong> Tudor Marmureanu</p>
+                    <p><strong>Company:</strong> Muap - Retro Computing Division</p>
+                    <a href="mailto:suport@muap.ro">suport@muap.ro</a>
+                    <br><br>
+                    <h4>Built-in Help Resources</h4>
+                    <p>Knowledge Base: Local documentation platform</p>
+                    <p>AI Chatbot: Integrated virtual assistant</p>
+                    <p>Read Me First: Essential usage information</p>
+                    <p>Multiapp Dashboard: Essential information</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Technical Information</h4>
+                    <p><strong>Architecture:</strong> x64 (64-bit) only</p>
+                    <p><strong>Size:</strong> ~500MB</p>
+                    <p><strong>Distribution:</strong> Single executable file</p>
+                    <p><strong>License:</strong> Professional IT Environments</p>
+                    <p><strong>Languages:</strong> Python and C++</p>
+                    <p><strong>Performance:</strong> 18.8% - 20% faster file copy operations and more</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Key Achievements</h4>
+                    <p>50+ integrated professional tools</p>
+                    <p>Zero installation requirements</p>
+                    <p>Military-grade security features</p>
+                    <p>95% Romanian language AI support</p>
+                    <p>Comprehensive network and hardware analysis</p>
+                    <p>Advanced development environment</p>
+                    <p>Real-time system monitoring</p>
+                    <p>Self-healing repair capabilities</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Muap - Retro Computing Division. All rights reserved.</p>
+                <p>Designed for professional IT environments with advanced network and system management capabilities. Some features may require administrative privileges or specific network permissions.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Microsoft Fluent Design smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Microsoft Fluent reveal effect
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('ms-motion-slideUpIn');
+                        entry.target.style.opacity = '1';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Initialize Microsoft Fluent animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.ms-card, .use-case-card, .stat-card, .step-card, .req-card');
+            animatedElements.forEach(element => {
+                element.style.opacity = '0';
+                observer.observe(element);
+            });
+
+            // Add Microsoft Fluent hover effects
+            const cards = document.querySelectorAll('.ms-card, .use-case-card, .stat-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+
+        // Microsoft-style navigation highlighting
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const sectionHeight = section.offsetHeight;
+                if (sectionTop <= 100 && sectionTop + sectionHeight > 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.color = '#323130';
+                link.style.backgroundColor = 'transparent';
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.style.color = '#0078d4';
+                    link.style.backgroundColor = '#f3f2f1';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
