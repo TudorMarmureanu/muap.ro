@@ -1,449 +1,886 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro Computing Division Home Page</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 12px;
-            margin: 8px;
-            background-color: #ffffff;
-            color: #000000;
-            line-height: 1.3;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitpack — Retro Computing Division</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .header {
-            background-color: #000080;
-            color: #ffffff;
-            padding: 15px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    :root {
+      --blue:        #0067b8;
+      --blue-dark:   #004e96;
+      --blue-deep:   #001d3d;
+      --blue-light:  #e5f1fb;
+      --blue-mid:    #cce4f7;
+      --text:        #1b1b1b;
+      --text-muted:  #5a5a5a;
+      --border:      #d0d0d0;
+      --surface:     #f4f4f4;
+      --white:       #ffffff;
+      --green:       #107c10;
+      --yellow:      #8a6914;
+      --yellow-bg:   #fff4ce;
+      --yellow-bdr:  #f7c948;
+      --radius:      3px;
+      --font:        "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            font-family: "Times New Roman", serif;
-            letter-spacing: 1px;
-        }
+    html { scroll-behavior: smooth; }
 
-        .subtitle {
-            font-size: 14px;
-            margin-top: 5px;
-            font-style: italic;
-        }
+    body {
+      font-family: var(--font);
+      font-size: 15px;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
 
-        .navigation {
-            background-color: #cccccc;
-            border: 2px inset #cccccc;
-            padding: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+    /* ── TOPBAR ─────────────────────────────────────────── */
+    .topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .topbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      height: 48px;
+      padding: 0 24px;
+      gap: 28px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 15px;
+      white-space: nowrap;
+      letter-spacing: -0.2px;
+    }
+    .nav-brand img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .nav-brand .logo-fallback {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .nav-brand .logo-fallback span {
+      display: block;
+      width: 9px;
+      height: 9px;
+    }
+    .nav-brand .logo-fallback span:nth-child(1) { background: #f25022; }
+    .nav-brand .logo-fallback span:nth-child(2) { background: #7fba00; }
+    .nav-brand .logo-fallback span:nth-child(3) { background: #00a4ef; }
+    .nav-brand .logo-fallback span:nth-child(4) { background: #ffb900; }
 
-        .nav-link {
-            color: #0000ee;
-            text-decoration: underline;
-            margin: 0 15px;
-            font-weight: bold;
-        }
+    .nav-links {
+      display: flex;
+      flex: 1;
+      gap: 0;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 13.5px;
+      padding: 0 13px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .nav-links a:hover { color: var(--blue); border-bottom-color: var(--blue); }
 
-        .nav-link:hover {
-            color: #ff0000;
-        }
+    .nav-cta {
+      margin-left: auto;
+      background: var(--blue);
+      color: var(--white);
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 7px 18px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .nav-cta:hover { background: var(--blue-dark); }
 
-        .main-content {
-            display: table;
-            width: 100%;
-        }
+    /* ── NOTICE BAR ─────────────────────────────────────── */
+    .notice-bar {
+      background: var(--blue-light);
+      border-bottom: 1px solid var(--blue-mid);
+      padding: 9px 24px;
+      text-align: center;
+      font-size: 13.5px;
+      color: #003a75;
+    }
+    .notice-bar a { color: var(--blue-dark); font-weight: 600; text-decoration: none; }
+    .notice-bar a:hover { text-decoration: underline; }
 
-        .left-column {
-            display: table-cell;
-            width: 70%;
-            vertical-align: top;
-            padding-right: 20px;
-        }
+    /* ── HERO ───────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #001326 0%, #002f60 55%, #0058a0 100%);
+      color: var(--white);
+      padding: 88px 24px 96px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.04) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.03) 0%, transparent 50%);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.28);
+      color: #a8d4f5;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: var(--radius);
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(38px, 5.5vw, 60px);
+      font-weight: 700;
+      line-height: 1.08;
+      margin-bottom: 22px;
+      letter-spacing: -0.8px;
+    }
+    .hero h1 span { color: #6cb8f9; }
+    .hero p {
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.82);
+      max-width: 580px;
+      margin: 0 auto 40px;
+      line-height: 1.75;
+    }
+    .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--white);
+      color: var(--blue-dark);
+      font-weight: 700;
+      font-size: 14.5px;
+      padding: 12px 30px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: opacity 0.15s, transform 0.12s;
+      display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      font-size: 14.5px;
+      padding: 12px 30px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: background 0.15s;
+      display: inline-block;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
 
-        .right-column {
-            display: table-cell;
-            width: 30%;
-            vertical-align: top;
-            background-color: #f0f0f0;
-            border: 1px solid #cccccc;
-            padding: 15px;
-        }
+    /* ── LAYOUT HELPERS ─────────────────────────────────── */
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 27px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+    .section-sub {
+      font-size: 15.5px;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.65;
+    }
 
-        .section-header {
-            background-color: #000080;
-            color: #ffffff;
-            padding: 5px 10px;
-            font-weight: bold;
-            margin: 20px 0 10px 0;
-            font-size: 14px;
-        }
+    /* ── OVERVIEW ───────────────────────────────────────── */
+    .overview { padding: 68px 24px; }
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 44px;
+    }
+    .ov-card {
+      background: var(--white);
+      padding: 32px 26px;
+      transition: background 0.15s;
+    }
+    .ov-card:hover { background: var(--blue-light); }
+    .ov-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--blue-light);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .ov-icon svg { width: 22px; height: 22px; stroke: var(--blue); }
+    .ov-card h3 { font-size: 14.5px; font-weight: 700; margin-bottom: 8px; }
+    .ov-card p  { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
-        .product-box {
-            border: 2px solid #000080;
-            margin: 15px 0;
-            background-color: #f8f8f8;
-        }
+    /* ── WARNING STRIP ──────────────────────────────────── */
+    .warn-wrap { padding: 0 24px 28px; }
+    .warn-box {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--yellow-bg);
+      border-left: 4px solid var(--yellow-bdr);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 14px 20px;
+      font-size: 13.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #6b4e00;
+    }
+    .warn-box svg { flex-shrink: 0; stroke: var(--yellow); }
 
-        .product-title {
-            background-color: #000080;
-            color: #ffffff;
-            padding: 8px;
-            font-weight: bold;
-            font-size: 13px;
-        }
+    /* ── FEATURES ───────────────────────────────────────── */
+    .features { padding: 16px 24px 72px; }
+    .tab-bar {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .tab-btn {
+      padding: 11px 18px;
+      font-size: 13.5px;
+      font-family: var(--font);
+      cursor: pointer;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: none;
+      color: var(--text-muted);
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--text); border-bottom-color: var(--border); }
+    .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 700; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .feat-item {
+      display: flex;
+      gap: 14px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .feat-item:hover {
+      border-color: var(--blue);
+      box-shadow: 0 2px 10px rgba(0,103,184,0.09);
+    }
+    .feat-check {
+      width: 20px;
+      height: 20px;
+      background: var(--green);
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .feat-check svg { width: 11px; height: 11px; stroke: white; }
+    .feat-text h4 { font-size: 13.5px; font-weight: 700; margin-bottom: 4px; }
+    .feat-text p  { font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
 
-        .product-content {
-            padding: 12px;
-        }
+    /* ── REQUIREMENTS ───────────────────────────────────── */
+    .reqs {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 60px 24px;
+    }
+    .req-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 36px;
+    }
+    .req-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px;
+    }
+    .req-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 18px; }
+    .req-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .req-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .req-label { color: var(--text-muted); flex-shrink: 0; }
+    .req-value { text-align: right; }
 
-        .download-button {
-            background-color: #ffff00;
-            border: 2px outset #ffff00;
-            padding: 5px 15px;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 5px 0;
-            display: inline-block;
-            text-decoration: none;
-            color: #000000;
-        }
+    /* ── NEWS ───────────────────────────────────────────── */
+    .news { padding: 68px 24px; }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+      margin-top: 44px;
+    }
+    .news-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s;
+    }
+    .news-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.1); }
+    .news-top {
+      background: var(--blue);
+      padding: 24px;
+      color: white;
+      min-height: 100px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .news-card:nth-child(2) .news-top { background: #005a9e; }
+    .news-card:nth-child(3) .news-top { background: #004578; }
+    .news-top time { display: block; font-size: 12px; opacity: 0.75; margin-bottom: 6px; }
+    .news-top h3  { font-size: 14.5px; font-weight: 700; line-height: 1.4; }
+    .news-body { padding: 20px 24px; flex: 1; }
+    .news-body p  { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; }
 
-        .download-button:hover {
-            background-color: #ffff80;
-        }
+    /* ── CTA STRIP ──────────────────────────────────────── */
+    .cta-strip {
+      background: var(--blue);
+      padding: 60px 24px;
+      text-align: center;
+      color: var(--white);
+    }
+    .cta-strip h2 { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+    .cta-strip p  {
+      font-size: 16px; opacity: 0.85;
+      max-width: 480px; margin: 0 auto 30px;
+      line-height: 1.65;
+    }
+    .btn-white {
+      background: var(--white);
+      color: var(--blue-dark);
+      font-weight: 700;
+      font-size: 14.5px;
+      padding: 12px 34px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.15s;
+    }
+    .btn-white:hover { opacity: 0.9; }
 
-        .download-button:active {
-            border: 2px inset #ffff00;
-        }
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: #181818;
+      color: #c8c8c8;
+      padding: 52px 24px 32px;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 36px;
+      margin-bottom: 44px;
+    }
+    .footer-col h4 {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: #a0a0a0;
+      text-decoration: none;
+      margin-bottom: 10px;
+      transition: color 0.15s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid #2e2e2e;
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #d2d2d2;
+    }
+    .footer-logo img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      opacity: 0.85;
+    }
+    .footer-logo .logo-fallback {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      width: 20px;
+      height: 20px;
+      opacity: 0.85;
+    }
+    .footer-logo .logo-fallback span { display: block; width: 9px; height: 9px; }
+    .footer-logo .logo-fallback span:nth-child(1) { background: #f25022; }
+    .footer-logo .logo-fallback span:nth-child(2) { background: #7fba00; }
+    .footer-logo .logo-fallback span:nth-child(3) { background: #00a4ef; }
+    .footer-logo .logo-fallback span:nth-child(4) { background: #ffb900; }
+    .footer-bottom p { font-size: 12px; color: #666; }
 
-        .news-section {
-            border: 1px solid #808080;
-            margin: 15px 0;
-            background-color: #ffffff;
-        }
-
-        .news-header {
-            background-color: #c0c0c0;
-            padding: 5px 10px;
-            font-weight: bold;
-            border-bottom: 1px solid #808080;
-        }
-
-        .news-item {
-            padding: 10px;
-            border-bottom: 1px dotted #cccccc;
-        }
-
-        .news-date {
-            color: #008000;
-            font-size: 10px;
-            font-weight: bold;
-        }
-
-        .link-section {
-            margin: 15px 0;
-        }
-
-        .link-category {
-            font-weight: bold;
-            color: #800080;
-            margin: 10px 0 5px 0;
-            text-decoration: underline;
-        }
-
-        .link-item {
-            margin: 3px 0 3px 15px;
-            font-size: 11px;
-        }
-
-        .link-item a {
-            color: #0000ee;
-            text-decoration: underline;
-        }
-
-        .link-item a:visited {
-            color: #800080;
-        }
-
-        .footer {
-            margin-top: 30px;
-            border-top: 2px solid #000080;
-            padding: 15px;
-            background-color: #f0f0f0;
-            text-align: center;
-            font-size: 10px;
-        }
-
-        .warning-box {
-            background-color: #ffcccc;
-            border: 2px solid #ff0000;
-            padding: 10px;
-            margin: 15px 0;
-        }
-
-        .warning-title {
-            font-weight: bold;
-            color: #ff0000;
-        }
-
-        .feature-table {
-            border: 1px solid #000000;
-            border-collapse: collapse;
-            width: 100%;
-            margin: 10px 0;
-        }
-
-        .feature-table th {
-            background-color: #cccccc;
-            border: 1px solid #000000;
-            padding: 5px;
-            font-weight: bold;
-        }
-
-        .feature-table td {
-            border: 1px solid #000000;
-            padding: 5px;
-            background-color: #ffffff;
-        }
-
-        .update-banner {
-            background-color: #ff0000;
-            color: #ffffff;
-            text-align: center;
-            padding: 8px;
-            margin: 10px 0;
-            font-weight: bold;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.7; }
-        }
-
-        .counter {
-            background-color: #000000;
-            color: #00ff00;
-            padding: 5px;
-            font-family: "Courier New", monospace;
-            text-align: center;
-            margin: 10px 0;
-        }
-    </style>
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 700px) {
+      .topbar-inner { gap: 12px; }
+      .nav-links { display: none; }
+      .nav-cta { margin-left: auto; }
+      .hero { padding: 60px 20px 70px; }
+      .overview-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 440px) {
+      .overview-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">Retro Computing Division</div>
-        <div class="subtitle">The most productive and well-organized startup kit for the IT department.</div>
+
+<!-- ═══ TOP NAV ═══════════════════════════════════════════ -->
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="nav-brand">
+      <img src="rcd.png" alt="RCD logo"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+      <span class="logo-fallback" style="display:none">
+        <span></span><span></span><span></span><span></span>
+      </span>
+      Retro Computing Division
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#" onclick="alert('All apps are incorporated in Bitpack.');return false;">Products</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#requirements">Requirements</a></li>
+      <li><a href="#news">What's New</a></li>
+      <li><a href="#" onclick="alert('Developer: Tudor Marmureanu.');return false;">Developer</a></li>
+      <li><a href="#" onclick="alert('This feature is currently under construction. Please check back soon!');return false;">Support</a></li>
+    </ul>
+
+    <a href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/BPK.x64.exe"
+       class="nav-cta">⬇ Download Bitpack</a>
+  </div>
+</nav>
+
+<!-- ═══ NOTICE BAR ════════════════════════════════════════ -->
+<div class="notice-bar">
+  <strong>NEW:</strong> Bitpack 0.95.0 — the most stable version ever — is available now.
+  <a href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/BPK.x64.exe">Download today →</a>
+</div>
+
+<!-- ═══ HERO ══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Offline · Portable · 100+ Tools</div>
+    <h1>Bitpack<br><span>Offline Edition</span></h1>
+    <p>The complete productivity suite for IT departments — over 100 professional tools in a single executable file.</p>
+    <div class="hero-actions">
+      <a href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/BPK.x64.exe"
+         class="btn-primary">⬇ Download Latest Version</a>
+      <a href="#features" class="btn-outline">Explore Features</a>
     </div>
+  </div>
+</section>
 
-    <div class="update-banner">
-        NEW! Bitpack runs 100% offline - Download Today!
-    </div>
+<!-- ═══ OVERVIEW CARDS ════════════════════════════════════ -->
+<section class="overview">
+  <div class="wrap">
+    <p class="section-label">Overview</p>
+    <h2 class="section-title">Everything your IT department needs</h2>
+    <p class="section-sub">Revolutionary software that combines professional tools into a single portable executable. No installation required.</p>
 
-    <div class="navigation">
-        <a href="####" class="nav-link">Products</a>
-        <a href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/BPK.x64.exe" class="nav-link">Downloads</a>
-        <a href="##" class="nav-link">Support</a>
-        <a href="###" class="nav-link">Developer</a>
-        <a href="#" class="nav-link">Corporate Info</a>
-        <a href="#####" class="nav-link">What's New</a>
-    </div>
+    <div class="overview-grid">
 
-    <div class="main-content">
-        <div class="left-column">
-            <div class="section-header">Featured Product</div>
-
-            <div class="product-box">
-                <div class="product-title">Bitpack - Offline Edition</div>
-                <div class="product-content">
-                    The most reliable Bitpack ever! The ultimate productivity and efficiency suite designed specifically for IT support departments. Revolutionary software combining over 100+ professional tools into a single, powerful executable file, streamlining various IT tasks from system monitoring to file management, network diagnostics, development tools, and advanced AI-powered productivity features. Perfect for home and business use.
-                    <br><br>
-                    <!--<strong>Minimum System Requirements:</strong> x64 (64-bit) Processor 1-2 GHz (Required), Windows 10 (build 1903+) or Windows 11, Intel i3 or AMD equivalent, 4GB RAM minimum, 500MB free disk space, Administrator privileges for full functionality, 100% zoom recommended (especially for laptops).<br><br><strong>Recommended System Specifications:</strong> Intel Core i5 or AMD Ryzen 5 (or equivalent), 8GB-16GB RAM (16GB for heavy development), SSD for faster file operations, 1920x1080+ resolution, Proper network permissions for file copying, Updated graphics drivers
-                    <br><br>-->
-                    <a href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/BPK.x64.exe" class="download-button">Download Latest Version</a>
-                    <!--<a href="#" class="download-button">Order Full Version</a>-->
-                </div>
-            </div>
-
-            <div class="product-box">
-                <div class="product-title">Bitpack - Details</div>
-                <div class="product-content">
-                    The complete productivity solution for initiating the IT departments and beyond!
-                    <br><br>
-                    <table class="feature-table">
-                        <tr>
-                            <th>Comprehensive Feature Set</th>
-                            <th>Description</th>
-                        </tr>
-                        <tr>
-                            <td><strong>System & Diagnostic Tools</strong></td>
-                            <td>Complete system management suite including system compatibility testing, registry viewer, hardware diagnostics & monitoring, disk utility visualizer, network troubleshooting, IT process automation, advanced terminal emulator, performance optimization, alert monitor, event viewer, manual & automatic repair tool for Bitpack, XML editor for Config, extension manager for Bitpack, real-time system information, task manager, process viewer, and Bitpack dashboard for essential information.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>File Management Pro Tools</strong></td>
-                            <td>Professional file management capabilities with smart backup tool, personal storage, advanced files & folders comparator, ZIP password recovery & maker, password safety checker, intelligent file organizer, Explorer mode, Copy App with network file copying, rename utility, file archeologist, archive management, file history tools, File Fisher searching, and Recovery Tunnel for advanced file recovery.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Security Suite</strong></td>
-                            <td>Enterprise-grade security tools featuring military-grade file encryption, advanced password manager & generation tools, multi-level authentication system, terminal access restrictions, multiple password generators (Basic & Advanced V2), password storage and management, file encryption and security tools, ZIP password recovery, and safety tool for vulnerability avoidance.</td>
-                        </tr>
-						<tr>
-                            <td><strong>Office Suite Lite</strong></td>
-                            <td>Comprehensive office productivity suite with Office document reader for Word, PowerPoint, CSV & Excel, spreadsheet editor with formula support, Bitpack office, PDF tools suite with encryption, image extraction, page manipulation, PDF to Word conversion, PDF editor, PDF to Excel/CSV conversion, document (Excel, Word, CSV, Text) to PDF - plain text and PDF viewer.</td>
-                        </tr>
-						<tr>
-                            <td><strong>Development Tools</strong></td>
-                            <td>Complete development environment with Python IDE, code merger & logic visualisation, binary editor with hex view, version control, API tool, programmer calculator, graphing calculator, regex testing, advanced text editor with syntax highlighting, Markdown viewer, database editor & reader with query tools, script agent for automation, multi file editor for configurations, project management capabilities, universal converter, and syntax highlighting for multiple programming languages.</td>
-                        </tr>
-						<tr>
-                            <td><strong>AI & Productivity</strong></td>
-                            <td>Advanced AI-powered productivity suite with AI chatbot (95% Romanian language support), activity monitor, data plotter, quick file finder, image editor, smart calendar & scheduling, calculator, task manager system, todo manager, knowledge base system (Standard & Retro), account launcher & manager, workflow automation, pause manager for teams, screen recorder app, visual diagram creator, decision tree designer, time tracker, expense tracker with reporting, ico converter, color picker, pixel art, quiz creation and testing, clipboard history, contacts manager, paint app & whiteboard, and find & replace text tool.</td>
-                        </tr>
-						<tr>
-                            <td><strong>Network & Connectivity Tools</strong></td>
-                            <td>Professional networking suite including network information display, network topology, network monitoring, port scanner, ping tool, network console with Wi-Fi password recovery, bandwidth monitoring with real-time graphs, device status listener, network traffic monitoring, and connection quality testing.</td>
-                        </tr>
-						<tr>
-                            <td><strong>Portable Application</strong></td>
-                            <td>Revolutionary deployment model with single executable requiring no installation, runs from anywhere (USB, another hard drive, network), automatic compatibility check, all features unlocked immediately, no external dependencies, optimized architecture with precompiled paths, direct bit allocation, and 18.8% - 20% faster copying files performance compared to traditional methods.</td>
-                        </tr>
-                    </table><br>
-					<table class="feature-table">
-						<tr>
-                            <th>Requirements</th>
-                            <th>Details</th>
-                        </tr>
-						<tr>
-                            <td><strong>Minimum System Requirements</strong></td>
-                            <td>x64 (64-bit) Processor 1-2 GHz (Required), Windows 10 (build 1903+) or Windows 11, Intel i3 or AMD equivalent, 4GB RAM minimum, 500MB free disk space, Administrator privileges for full functionality, 100% zoom recommended (especially for laptops).</td>
-                        </tr>
-						<tr>
-                            <td><strong>Recommended System Specifications</strong></td>
-							<td>Intel Core i5 or AMD Ryzen 5 (or equivalent), 8GB-16GB RAM (16GB for heavy development), SSD for faster file operations, 1920x1080+ resolution, Proper network permissions for file copying, Updated graphics drivers</td>
-                        </tr>
-					</table>
-                    <!--<a href="#" class="download-button">Free 30-Day Trial</a>-->
-                </div>
-            </div>
-
-            <div class="warning-box">
-                <div class="warning-title">Important Notice</div>
-                This software is designed exclusively for x64 (64-bit) systems
-            </div>
-
-            <div class="section-header">Latest News</div>
-
-            <div class="news-section">
-                <div class="news-header">News Center</div>
-                <div class="news-item">
-                    <div class="news-date">May 19, 2026</div>
-                    <strong>Retro Computing Division announces the most successful and stable version of Bitpack</strong><br>
-                    Customers can now download and test the most stable version of Bitpack ever created.
-                </div>
-                <div class="news-item">
-                    <div class="news-date">August 28, 2025</div>
-                    <strong>Retro Computing Division announces more integrations</strong><br>
-                    Revolutionary new programming model will transform how application are built and used.
-                </div>
-                <div class="news-item">
-                    <div class="news-date">July 22, 2024</div>
-                    <strong>Bitpack support is now integrated </strong><br>
-                    Retro Computing Division offers you a user handbook integrated into Bitpack.
-                </div>
-            </div>
+      <div class="ov-card">
+        <div class="ov-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </div>
+        <h3>Portable Application</h3>
+        <p>A single executable, no installation. Run from USB, network, or any drive. All features available immediately.</p>
+      </div>
 
-        <div class="right-column">
-            <div class="link-section">
-                <div class="link-category">Quick Downloads</div>
-                <div class="link-item"><a href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/BPK.x64.exe">Bitpack</a></div>
-            </div>
-
-            <div class="link-section">
-                <div class="link-category">Technical Support</div>
-                <div class="link-item"><a href="##">User handbook</a></div>
-            </div>
-
-            <div class="counter">
-                Visitors Today: 0047592
-                <br>
-                Total Visits: 2847593
-            </div>
+      <div class="ov-card">
+        <div class="ov-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
+        <h3>Security Suite</h3>
+        <p>Military-grade file encryption, advanced password manager, multi-level authentication, and vulnerability mitigation tools.</p>
+      </div>
+
+      <div class="ov-card">
+        <div class="ov-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M12 2v2M12 20v2M20 12h2M2 12h2M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41"/></svg>
+        </div>
+        <h3>AI &amp; Productivity</h3>
+        <p>AI chatbot with 95% Romanian language support, activity monitor, task manager, knowledge base, and automation.</p>
+      </div>
+
+      <div class="ov-card">
+        <div class="ov-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Network Tools</h3>
+        <p>Port scanner, network monitoring, bandwidth graphs, ping, Wi-Fi password recovery, and connection quality testing.</p>
+      </div>
+
+      <div class="ov-card">
+        <div class="ov-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <h3>File Management</h3>
+        <p>Smart backup, file comparator, ZIP recovery, auto-organizer, network file copying 18–20% faster than traditional methods.</p>
+      </div>
+
+      <div class="ov-card">
+        <div class="ov-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>Dev Tools</h3>
+        <p>Python IDE, hex editor, API tool, regex tester, database editor, syntax highlighting, calculator, and version control.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WARNING STRIP ═════════════════════════════════════ -->
+<div class="warn-wrap">
+  <div class="warn-box">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+    </svg>
+    <span><strong>System requirement:</strong> Bitpack is designed exclusively for x64 (64-bit) systems. 32-bit systems are not supported.</span>
+  </div>
+</div>
+
+<!-- ═══ FEATURES ══════════════════════════════════════════ -->
+<section class="features" id="features">
+  <div class="wrap">
+    <p class="section-label">Capabilities</p>
+    <h2 class="section-title">Complete feature set</h2>
+    <p class="section-sub section-sub--mb" style="margin-bottom:36px;">Every tool an IT department needs, organized in clear categories and accessible in seconds.</p>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="showTab('system',this)">System &amp; Diagnostics</button>
+      <button class="tab-btn" onclick="showTab('file',this)">File Management</button>
+      <button class="tab-btn" onclick="showTab('security',this)">Security</button>
+      <button class="tab-btn" onclick="showTab('office',this)">Office Suite</button>
+      <button class="tab-btn" onclick="showTab('dev',this)">Development</button>
+      <button class="tab-btn" onclick="showTab('ai',this)">AI &amp; Productivity</button>
+      <button class="tab-btn" onclick="showTab('network',this)">Network</button>
     </div>
 
-    <div class="footer">
-        <strong>Muap - Retro Computing Division</strong><br>
-        Copyright 2025 Tudor Marmureanu. All rights reserved.<br>
-        <em>This page was last updated on May 19, 2026</em><br>
+    <!-- SYSTEM -->
+    <div id="tab-system" class="tab-panel active">
+      <div class="feat-grid">
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>System Compatibility Testing</h4><p>Hardware and software verification before deployment.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Windows Registry Viewer</h4><p>Safe inspection and navigation of Windows registry entries.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Hardware Diagnostics &amp; Monitoring</h4><p>Real-time tracking of hardware health and performance.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Disk Utility Viewer</h4><p>Visual analysis of disk usage and storage management.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>IT Process Automation</h4><p>Automate repetitive tasks with a built-in automation engine.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Advanced Terminal Emulator</h4><p>Powerful command-line interface for system operations.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Performance Optimization</h4><p>Automatic identification and resolution of performance bottlenecks.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Event Viewer &amp; Alerts</h4><p>System event tracking and proactive alerts.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Repair Tool (Manual &amp; Automatic)</h4><p>On-demand diagnostics and repair for Bitpack and system issues.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>XML Configuration Editor</h4><p>Edit configuration files with syntax validation.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Bitpack Dashboard</h4><p>Control centre with all essential system information at a glance.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Task Manager &amp; Process Viewer</h4><p>Real-time monitoring and control of active processes.</p></div></div>
+      </div>
     </div>
 
-    <script>
-        // Visitor counter animation
-        function updateCounter() {
-            const counter = document.querySelector('.counter');
-            if (counter) {
-                const currentCount = parseInt(counter.textContent.match(/\d+/)[0]);
-                const newCount = currentCount + Math.floor(Math.random() * 3) + 1;
-                counter.innerHTML = `Visitors Today: ${newCount.toString().padStart(7, '0')}<br>Total Visits: ${(2847593 + newCount - 47592).toString()}`;
-            }
-        }
+    <!-- FILE -->
+    <div id="tab-file" class="tab-panel">
+      <div class="feat-grid">
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Smart Backup Tool</h4><p>Automated backup with scheduling and versioning.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>File &amp; Folder Comparator</h4><p>Advanced diff tool for files and directory structures.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>ZIP Password Recovery &amp; Creation</h4><p>Create and recover passwords for ZIP archives.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Smart File Organizer</h4><p>Automatic sorting and categorization of files by user-defined rules.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Copy App — Network File Copying</h4><p>18–20% faster than traditional copying methods.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>File Fisher — Advanced Search</h4><p>Deep indexed search across all drives and locations.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Recovery Tunnel</h4><p>Advanced recovery for deleted or corrupted data.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Archive Management</h4><p>Create, open, and manage ZIP and other archive formats.</p></div></div>
+      </div>
+    </div>
 
-        // Update counter every 10 seconds
-        setInterval(updateCounter, 10000);
+    <!-- SECURITY -->
+    <div id="tab-security" class="tab-panel">
+      <div class="feat-grid">
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Military-Grade File Encryption</h4><p>Strong encryption to protect sensitive files.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Advanced Password Manager</h4><p>Secure storage, generation, and management of passwords.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Multi-Level Authentication System</h4><p>Tiered access control for terminal and system operations.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Password Strength Checker</h4><p>Evaluate password strength and identify weak credentials.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Password Generators (Basic &amp; Advanced V2)</h4><p>Generate cryptographically strong passwords on demand.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Vulnerability Mitigation Tool</h4><p>Identify and mitigate common security vulnerabilities.</p></div></div>
+      </div>
+    </div>
 
-        // Classic alert interactions
-        document.querySelectorAll('a[href="#"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const linkText = this.textContent || this.innerText;
-                alert(`${linkText}\n\nThis feature is currently under construction. Please check back soon!`);
-            });
-        });
-		
-		document.querySelectorAll('a[href="##"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const linkText = this.textContent || this.innerText;
-                alert(`${linkText}\n\nThis feature is currently incorporated in Bitpack.`);
-            });
-        });
-		
-		document.querySelectorAll('a[href="###"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const linkText = this.textContent || this.innerText;
-                alert(`${linkText}\n\nDeveloper: Tudor Marmureanu.`);
-            });
-        });
-		
-		document.querySelectorAll('a[href="####"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const linkText = this.textContent || this.innerText;
-                alert(`${linkText}\n\nAll apps are incorporated in Bitpack.`);
-            });
-        });
-		
-		document.querySelectorAll('a[href="#####"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const linkText = this.textContent || this.innerText;
-                alert(`${linkText}\n\nCustomers can now download and test the most stable version of Bitpack ever created (0.95.0).`);
-            });
-        });
+    <!-- OFFICE -->
+    <div id="tab-office" class="tab-panel">
+      <div class="feat-grid">
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Office Document Reader</h4><p>Native opening of Word, PowerPoint, CSV, and Excel files.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Spreadsheet Editor</h4><p>Full editing with formula support.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>PDF Tools Suite</h4><p>Encryption, image extraction, page manipulation, and PDF editing.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>PDF to Word / Excel / CSV Conversion</h4><p>Convert PDF files to editable Office formats with high accuracy.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Document to PDF Conversion</h4><p>Instantly convert Excel, Word, CSV, and text files to PDF.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Text &amp; PDF Viewer</h4><p>Quick and easy viewing without additional software.</p></div></div>
+      </div>
+    </div>
 
-        // Add some 90s flair
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Welcome to Retro Computing Division!');
-        });
-    </script>
+    <!-- DEV -->
+    <div id="tab-dev" class="tab-panel">
+      <div class="feat-grid">
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Python IDE</h4><p>Full Python development environment with execution support.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Binary Editor with Hex View</h4><p>Inspect and edit binary files at the byte level.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>API Tool</h4><p>Test and debug REST APIs directly from the application.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Database Editor &amp; Reader</h4><p>Full SQL support with visual table editing.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Regex Testing</h4><p>Build and test regular expressions with live matching.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Advanced Text Editor</h4><p>Syntax highlighting for multiple programming languages.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Code Merger &amp; Logic Visualiser</h4><p>Merge code files and visualize logic flows.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Script Agent for Automation</h4><p>Create and run automation scripts across the system.</p></div></div>
+      </div>
+    </div>
+
+    <!-- AI -->
+    <div id="tab-ai" class="tab-panel">
+      <div class="feat-grid">
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>AI Chatbot (95% Romanian Language)</h4><p>Integrated AI assistant with strong Romanian language support.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Knowledge Base System</h4><p>Standard and Retro knowledge base for team documentation.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Smart Calendar &amp; Scheduling</h4><p>Intelligent organisation of tasks, meetings, and deadlines.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Visual Diagram Creator</h4><p>Build flowcharts and decision trees with a visual editor.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Screen Recorder</h4><p>Record screen activity for documentation and training.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Expense Tracker with Reporting</h4><p>Log and report expenses with auto-generated summaries.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Clipboard History</h4><p>Recall any item copied during the current session.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Paint &amp; Whiteboard App</h4><p>Quick sketching, annotations, and collaborative whiteboards.</p></div></div>
+      </div>
+    </div>
+
+    <!-- NETWORK -->
+    <div id="tab-network" class="tab-panel">
+      <div class="feat-grid">
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Network Topology Viewer</h4><p>Visualize network structure and device connections.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Port Scanner</h4><p>Discover open ports on devices across the network.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Bandwidth Monitor</h4><p>Real-time bandwidth usage graphs and traffic analysis.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Wi-Fi Password Recovery</h4><p>Recover saved Wi-Fi credentials from the current system.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Ping Tool</h4><p>Test network reachability and latency to any host.</p></div></div>
+        <div class="feat-item"><div class="feat-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="feat-text"><h4>Connection Quality Testing</h4><p>Measure and diagnose connection stability and performance.</p></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ REQUIREMENTS ══════════════════════════════════════ -->
+<section class="reqs" id="requirements">
+  <div class="wrap">
+    <p class="section-label">System Requirements</p>
+    <h2 class="section-title">Before you download</h2>
+    <p class="section-sub">Make sure your system meets these specifications for the best experience.</p>
+
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>Minimum Requirements</h3>
+        <div class="req-row"><span class="req-label">Architecture</span><span class="req-value">x64 (64-bit) — Mandatory</span></div>
+        <div class="req-row"><span class="req-label">Processor</span><span class="req-value">1–2 GHz, Intel i3 or AMD equivalent</span></div>
+        <div class="req-row"><span class="req-label">Operating System</span><span class="req-value">Windows 10 (build 1903+) or Windows 11</span></div>
+        <div class="req-row"><span class="req-label">Memory</span><span class="req-value">Minimum 4 GB RAM</span></div>
+        <div class="req-row"><span class="req-label">Storage</span><span class="req-value">500 MB free disk space</span></div>
+        <div class="req-row"><span class="req-label">Privileges</span><span class="req-value">Administrator rights for full functionality</span></div>
+        <div class="req-row"><span class="req-label">Display</span><span class="req-value">100% zoom recommended (especially laptops)</span></div>
+      </div>
+      <div class="req-card">
+        <h3>Recommended Specifications</h3>
+        <div class="req-row"><span class="req-label">Processor</span><span class="req-value">Intel Core i5 or AMD Ryzen 5 (or equivalent)</span></div>
+        <div class="req-row"><span class="req-label">Memory</span><span class="req-value">8–16 GB RAM (16 GB for intensive development)</span></div>
+        <div class="req-row"><span class="req-label">Storage</span><span class="req-value">SSD for faster file operations</span></div>
+        <div class="req-row"><span class="req-label">Resolution</span><span class="req-value">1920 × 1080 or higher</span></div>
+        <div class="req-row"><span class="req-label">Network</span><span class="req-value">Network permissions for file copying</span></div>
+        <div class="req-row"><span class="req-label">Graphics</span><span class="req-value">Updated graphics drivers</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NEWS ══════════════════════════════════════════════ -->
+<section class="news" id="news">
+  <div class="wrap">
+    <p class="section-label">News</p>
+    <h2 class="section-title">Latest updates</h2>
+    <p class="section-sub">Stay up to date with the latest releases and announcements from Retro Computing Division.</p>
+
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-top">
+          <div>
+            <time>May 19, 2026</time>
+            <h3>Retro Computing Division announces the most stable version of Bitpack ever</h3>
+          </div>
+        </div>
+        <div class="news-body">
+          <p>Users can now download and test the most stable version of Bitpack ever created (0.95.0).</p>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-top">
+          <div>
+            <time>August 28, 2025</time>
+            <h3>Retro Computing Division announces new integrations</h3>
+          </div>
+        </div>
+        <div class="news-body">
+          <p>A revolutionary new programming model will transform the way applications are built and used.</p>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-top">
+          <div>
+            <time>July 22, 2024</time>
+            <h3>Bitpack support is now integrated</h3>
+          </div>
+        </div>
+        <div class="news-body">
+          <p>Retro Computing Division provides a complete user manual integrated directly into Bitpack.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA STRIP ═════════════════════════════════════════ -->
+<section class="cta-strip">
+  <h2>Download Bitpack today</h2>
+  <p>Free, portable, and packed with over 100 professional IT tools. No installation required.</p>
+  <a href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/BPK.x64.exe"
+     class="btn-white">⬇ Download Latest Version</a>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Bitpack</h4>
+        <a href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/BPK.x64.exe">Download</a>
+        <a href="#features">Features</a>
+        <a href="#requirements">System Requirements</a>
+        <a href="#news">News</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#" onclick="alert('The user manual is integrated into Bitpack.');return false;">User Manual</a>
+        <a href="#" onclick="alert('This feature is under construction.');return false;">Contact Support</a>
+      </div>
+      <div class="footer-col">
+        <h4>Developer</h4>
+        <a href="#" onclick="alert('Developer: Tudor Marmureanu.');return false;">Tudor Marmureanu</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-logo">
+        <img src="rcd.png" alt="RCD"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+        <span class="logo-fallback" style="display:none">
+          <span></span><span></span><span></span><span></span>
+        </span>
+        Muap — Retro Computing Division
+      </div>
+      <p>© 2026 Tudor Marmureanu. All rights reserved. · Updated May 19, 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function showTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+
 </body>
 </html>
