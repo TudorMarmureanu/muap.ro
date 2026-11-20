@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bitpack – more than 100 office tools in a single file</title>
+<meta name="description" content="Bitpack: more than 100 tools for documents, PDF, data, images and video in one Windows program. No installation, no administrator rights, no Microsoft Office.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script>
+  try { var saved = localStorage.getItem("bitpack-theme"); if (saved === "light" || saved === "dark") { document.documentElement.setAttribute("data-theme", saved); } } catch (e) {}
+</script>
+<style>
+  :root {
+    color-scheme: light;
+    --desktop: #008080;
+    --desktop-deep: #006a6a;
+    --face: #c0c0c0;
+    --face-soft: #d4d0c8;
+    --hi: #ffffff;
+    --shadow: #808080;
+    --dark: #000000;
+    --title: #000080;
+    --title-end: #1084d0;
+    --title-text: #ffffff;
+    --ink: #000000;
+    --ink-soft: #3a3a3a;
+    --field: #ffffff;
+    --select: #000080;
+    --select-text: #ffffff;
+    --yes: #006400;
+    --no: #a00000;
+    --accent: #ffff00;
+    --step-num: #000080;
+    --display: "Pixelify Sans", "Tahoma", "Verdana", sans-serif;
+    --body: "Atkinson Hyperlegible", "Tahoma", "Verdana", "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --desktop: #0b3a3a;
+      --desktop-deep: #082e2e;
+      --face: #3c3c3c;
+      --face-soft: #333333;
+      --hi: #6a6a6a;
+      --shadow: #1e1e1e;
+      --dark: #000000;
+      --title: #1d2f7a;
+      --title-end: #2f5fa8;
+      --title-text: #ffffff;
+      --ink: #ececec;
+      --ink-soft: #c4c4c4;
+      --field: #262626;
+      --select: #3550b8;
+      --select-text: #ffffff;
+      --yes: #7fd17f;
+      --no: #ff8a8a;
+      --accent: #ffe14d;
+      --step-num: #ffe14d;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --desktop: #0b3a3a;
+    --desktop-deep: #082e2e;
+    --face: #3c3c3c;
+    --face-soft: #333333;
+    --hi: #6a6a6a;
+    --shadow: #1e1e1e;
+    --dark: #000000;
+    --title: #1d2f7a;
+    --title-end: #2f5fa8;
+    --title-text: #ffffff;
+    --ink: #ececec;
+    --ink-soft: #c4c4c4;
+    --field: #262626;
+    --select: #3550b8;
+    --select-text: #ffffff;
+    --yes: #7fd17f;
+    --no: #ff8a8a;
+    --accent: #ffe14d;
+    --step-num: #ffe14d;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    transition: background-color .15s steps(2);
+    background: var(--desktop);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px dotted var(--ink); outline-offset: 2px; }
+  img, svg { max-width: 100%; }
+
+  /* ---------- Win95 bits ---------- */
+  .raised {
+    background: var(--face);
+    border: 2px solid;
+    border-color: var(--hi) var(--dark) var(--dark) var(--hi);
+    box-shadow: inset -1px -1px 0 var(--shadow), inset 1px 1px 0 var(--face-soft);
+  }
+  .sunken {
+    background: var(--field);
+    border: 2px solid;
+    border-color: var(--shadow) var(--hi) var(--hi) var(--shadow);
+    box-shadow: inset 1px 1px 0 var(--dark);
+  }
+  .window { background: var(--face); padding: 3px; }
+  .titlebar {
+    display: flex; align-items: center; gap: 6px;
+    background: linear-gradient(90deg, var(--title), var(--title-end));
+    color: var(--title-text);
+    font-family: var(--body); font-weight: 700; font-size: 14px;
+    padding: 3px 3px 3px 6px;
+    min-height: 24px;
+  }
+  .titlebar .t { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .caption-btns { display: flex; gap: 2px; }
+  .caption-btns span {
+    width: 18px; height: 16px; display: grid; place-items: center;
+    font: 700 11px/1 var(--body); color: var(--ink);
+  }
+  .window-body { padding: 20px 22px 22px; }
+  .btn {
+    display: inline-block;
+    font: 700 16px/1 var(--body);
+    color: var(--ink);
+    text-decoration: none;
+    padding: 11px 20px;
+    cursor: pointer;
+  }
+  .btn:active { border-color: var(--dark) var(--hi) var(--hi) var(--dark); box-shadow: inset 1px 1px 0 var(--shadow); }
+  .btn.default { outline: 1px solid var(--dark); outline-offset: 0; }
+
+  .wrap { width: min(1120px, 100% - 32px); margin-inline: auto; }
+
+
+  .btn.download { display: inline-flex; align-items: center; gap: 8px; }
+  .btn.download svg { width: 18px; height: 18px; flex: none; }
+  .dl-note { color: #ffffff; font-size: 14px; margin: 10px 0 0; text-shadow: 1px 1px 0 rgba(0,0,0,.6); }
+
+  /* ---------- top bar ---------- */
+  .topbar { position: sticky; top: 0; z-index: 20; }
+  .topbar .inner {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    padding: 4px 6px;
+  }
+  .start {
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 10px; font: 700 15px/1 var(--body); text-decoration: none; color: var(--ink);
+  }
+  .nav { display: flex; gap: 2px; flex-wrap: wrap; margin-left: 6px; }
+  .nav a {
+    text-decoration: none; padding: 6px 10px; font-size: 15px; color: var(--ink);
+    border: 2px solid transparent;
+  }
+  .nav a:hover { border-color: var(--hi) var(--dark) var(--dark) var(--hi); }
+  .topbar .cta { margin-left: auto; padding: 8px 14px; font-size: 15px; }
+
+  /* ---------- light / dark switch (a Win95 check box) ---------- */
+  .theme-switch {
+    display: flex; align-items: center; gap: 8px; margin-left: auto;
+    background: none; border: 0; padding: 6px 8px; cursor: pointer;
+    font: 400 15px/1 var(--body); color: var(--ink);
+  }
+  .theme-switch .box { width: 15px; height: 15px; display: grid; place-items: center; flex: none; }
+  .theme-switch .box svg { width: 11px; height: 11px; visibility: hidden; }
+  .theme-switch[aria-checked="true"] .box svg { visibility: visible; }
+  .topbar .cta { margin-left: 4px; }
+  .topbar .cta.download { margin-left: 4px; }
+
+  /* ---------- hero: a desktop ---------- */
+  .hero { padding: 56px 0 72px; position: relative; overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 44px; align-items: start; }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(40px, 6.2vw, 76px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    margin: 0 0 22px;
+    color: #ffffff;
+    text-shadow: 3px 3px 0 #000000;
+  }
+  .hero .lead { color: #ffffff; font-size: 20px; max-width: 34em; margin: 0 0 28px; text-shadow: 1px 1px 0 rgba(0,0,0,.6); }
+  .hero .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .facts { list-style: none; padding: 0; margin: 28px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .facts li { padding: 6px 10px; font-size: 15px; }
+
+  .desk { display: grid; gap: 18px; }
+  .icons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 6px; }
+  .icon {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    background: none; border: 0; padding: 6px 4px; cursor: pointer;
+    color: #ffffff; font: 400 14px/1.25 var(--body); text-align: center;
+  }
+  .icon svg { width: 44px; height: 44px; image-rendering: pixelated; filter: drop-shadow(1px 1px 0 rgba(0,0,0,.5)); }
+  .icon span { padding: 1px 3px; }
+  .icon[aria-pressed="true"] span { background: var(--select); color: var(--select-text); outline: 1px dotted #ffffff; }
+  .icon[aria-pressed="true"] svg { filter: drop-shadow(1px 1px 0 rgba(0,0,0,.5)) brightness(.75) sepia(1) hue-rotate(190deg) saturate(3); }
+
+  .tool-window .window-body { padding: 16px 18px 18px; min-height: 218px; }
+  .tool-window h3 { font: 700 20px/1.25 var(--body); margin: 0 0 8px; }
+  .tool-window p { margin: 0 0 10px; }
+  .tool-window .solves { padding: 10px 12px; font-size: 16px; margin-top: 12px; }
+  .tool-window .solves b { display: block; margin-bottom: 2px; }
+  .opening { animation: open .18s steps(4) both; }
+  @keyframes open { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  /* ---------- sections ---------- */
+  section.band { padding: 26px 0; }
+  .section-window .window-body { padding: 26px 30px 30px; }
+  h2 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(30px, 3.6vw, 44px); line-height: 1.08;
+    margin: 0 0 12px;
+  }
+  .intro { max-width: 46em; margin: 0 0 24px; color: var(--ink-soft); font-size: 18px; }
+
+  /* before / after */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .compare h3 { margin: 0 0 10px; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+  .compare ul { margin: 0; padding: 14px 16px 14px 34px; }
+  .compare li { margin: 0 0 9px; }
+  .compare li:last-child { margin: 0; }
+  .compare .no li::marker { content: "x  "; color: var(--no); font-weight: 700; }
+  .compare .yes li::marker { content: "✓  "; color: var(--yes); font-weight: 700; }
+
+  /* benefits */
+  .benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .benefit { padding: 18px 18px 16px; }
+  .benefit h3 { font-size: 18px; margin: 10px 0 6px; line-height: 1.3; }
+  .benefit p { margin: 0; color: var(--ink-soft); font-size: 16px; }
+  .benefit svg { width: 34px; height: 34px; }
+
+  /* tabs */
+  .tabs { display: flex; flex-wrap: wrap; gap: 2px; margin-bottom: -2px; position: relative; z-index: 1; }
+  .tab {
+    font: 400 15px/1.2 var(--body); color: var(--ink);
+    background: var(--face); padding: 8px 14px 7px; cursor: pointer;
+    border: 2px solid; border-bottom: 0;
+    border-color: var(--hi) var(--dark) transparent var(--hi);
+    margin-top: 4px;
+  }
+  .tab[aria-selected="true"] { margin-top: 0; padding-bottom: 11px; font-weight: 700; position: relative; z-index: 2; }
+  .tabpanel { padding: 18px; background: var(--face); }
+  .tabpanel[hidden] { display: none; }
+  .tool-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 22px; list-style: none; margin: 0; padding: 0; }
+  .tool-list li { padding: 12px 14px; }
+  .tool-list b { display: block; font-size: 16.5px; }
+  .tool-list span { color: var(--ink-soft); font-size: 15.5px; }
+  .more { margin: 16px 2px 0; color: var(--ink-soft); font-size: 16px; }
+
+
+  /* limitations: a Win95 "details" list */
+  .limits-general { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 18px; margin: 0 0 26px; padding: 0; list-style: none; }
+  .limits-general li { padding: 12px 14px; }
+  .limits-general b { display: block; font-size: 16.5px; margin-bottom: 2px; }
+  .limits-general span { color: var(--ink-soft); font-size: 15.5px; }
+  .limit-groups { display: grid; gap: 18px; }
+  .limit-group {
+    margin: 0; padding: 14px 16px 16px;
+    border: 2px groove var(--hi);
+  }
+  .limit-group legend { font: 700 17px/1 var(--body); padding: 0 6px; }
+  .limit-tools { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 18px; }
+  .limit-tool { padding: 10px 12px; background: var(--field); border: 2px solid; border-color: var(--shadow) var(--hi) var(--hi) var(--shadow); }
+  .limit-tool b { display: block; font-size: 16px; margin-bottom: 3px; }
+  .limit-tool ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 15.5px; }
+  .limit-tool li { margin: 0 0 3px; }
+  .limit-tool li:last-child { margin: 0; }
+  @media (max-width: 620px) {
+    .limits-general, .limit-tools { grid-template-columns: 1fr; }
+    .limit-group { padding: 12px 10px 12px; }
+  }
+
+
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  /* steps */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; counter-reset: s; list-style: none; padding: 0; margin: 0; }
+  .steps li { padding: 18px; position: relative; }
+  .steps li::before {
+    counter-increment: s; content: counter(s);
+    font: 700 34px/1 var(--display); display: block; margin-bottom: 10px; color: var(--step-num);
+  }
+  .steps h3 { margin: 0 0 6px; font-size: 18px; }
+  .steps p { margin: 0; color: var(--ink-soft); font-size: 16px; }
+
+  /* faq */
+  details { margin-bottom: 8px; }
+  summary {
+    cursor: pointer; padding: 11px 14px; font-weight: 700; list-style: none;
+    display: flex; gap: 10px; align-items: center;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "+"; width: 16px; height: 16px; flex: none; display: grid; place-items: center;
+    font: 700 13px/1 var(--body); background: var(--field); color: var(--ink);
+    border: 1px solid var(--shadow);
+  }
+  details[open] summary::before { content: "−"; }
+  details .answer { padding: 4px 16px 14px 40px; color: var(--ink-soft); max-width: 46em; }
+
+  /* closing dialog */
+  .dialog { max-width: 640px; margin: 10px auto 0; }
+  .dialog .window-body { display: grid; grid-template-columns: auto 1fr; gap: 18px; padding: 24px; }
+  .dialog h2 { font-size: clamp(26px, 3vw, 34px); }
+  .dialog p { margin: 0 0 18px; }
+  .dialog .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  footer { color: #ffffff; text-align: center; padding: 34px 16px 44px; font-size: 15px; }
+  footer p { margin: 4px 0; text-shadow: 1px 1px 0 rgba(0,0,0,.5); }
+
+  @media (max-width: 920px) {
+    .hero-grid, .compare { grid-template-columns: 1fr; }
+    .benefits, .steps { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 620px) {
+    body { font-size: 16px; }
+    .hero { padding: 34px 0 46px; }
+    .icons { grid-template-columns: repeat(3, 1fr); }
+    .benefits, .steps, .tool-list { grid-template-columns: 1fr; }
+    .section-window .window-body { padding: 18px 16px 20px; }
+    .nav { display: none; }
+    .topbar .cta.demo { display: none; }
+    .dialog .window-body { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .opening { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Symbols used by the icons -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logo" viewBox="0 0 32 32">
+      <rect x="4" y="21" width="24" height="7" fill="#000080" stroke="#000" />
+      <rect x="6" y="13" width="20" height="7" fill="#008080" stroke="#000" />
+      <rect x="8" y="5" width="16" height="7" fill="#ffff00" stroke="#000" />
+      <rect x="5" y="22" width="22" height="1" fill="#4a4ad0" />
+      <rect x="7" y="14" width="18" height="1" fill="#40c0c0" />
+      <rect x="9" y="6" width="14" height="1" fill="#ffffb0" />
+    </symbol>
+    <symbol id="i-video" viewBox="0 0 32 32">
+      <rect x="3" y="7" width="26" height="18" fill="#202020" stroke="#000"/>
+      <rect x="7" y="11" width="18" height="10" fill="#4aa0e0"/>
+      <polygon points="13,12 13,20 20,16" fill="#fff"/>
+      <g fill="#fff"><rect x="4" y="8" width="2" height="2"/><rect x="4" y="22" width="2" height="2"/><rect x="26" y="8" width="2" height="2"/><rect x="26" y="22" width="2" height="2"/><rect x="4" y="15" width="2" height="2"/><rect x="26" y="15" width="2" height="2"/></g>
+    </symbol>
+    <symbol id="i-pdf" viewBox="0 0 32 32">
+      <path d="M7 3h13l6 6v20H7z" fill="#fff" stroke="#000"/>
+      <path d="M20 3v6h6" fill="#c0c0c0" stroke="#000"/>
+      <rect x="9" y="16" width="15" height="8" fill="#c00000"/>
+      <text x="16.5" y="22.5" font-size="6.5" font-family="Arial" font-weight="700" fill="#fff" text-anchor="middle">PDF</text>
+    </symbol>
+    <symbol id="i-sheet" viewBox="0 0 32 32">
+      <rect x="4" y="5" width="24" height="22" fill="#fff" stroke="#000"/>
+      <rect x="4" y="5" width="24" height="5" fill="#008000"/>
+      <g stroke="#808080"><path d="M4 15h24M4 20h24M12 10v17M20 10v17"/></g>
+      <rect x="13" y="16" width="6" height="3" fill="#ffff00"/>
+    </symbol>
+    <symbol id="i-report" viewBox="0 0 32 32">
+      <path d="M6 3h20v26H6z" fill="#fff" stroke="#000"/>
+      <rect x="9" y="6" width="14" height="3" fill="#000080"/>
+      <rect x="9" y="19" width="3" height="6" fill="#c00000"/><rect x="14" y="15" width="3" height="10" fill="#008000"/><rect x="19" y="12" width="3" height="13" fill="#000080"/>
+      <path d="M9 11h14" stroke="#808080"/>
+    </symbol>
+    <symbol id="i-steps" viewBox="0 0 32 32">
+      <rect x="3" y="6" width="22" height="16" fill="#c0c0c0" stroke="#000"/>
+      <rect x="5" y="9" width="18" height="11" fill="#008080"/>
+      <circle cx="23" cy="22" r="6" fill="#ffff00" stroke="#000"/>
+      <text x="23" y="25" font-size="8" font-family="Arial" font-weight="700" text-anchor="middle">1</text>
+    </symbol>
+    <symbol id="i-paint" viewBox="0 0 32 32">
+      <path d="M5 26c0-9 4-19 13-21 7-1 10 4 8 8-2 3-6 1-7 4-1 4 4 5 1 8-3 3-15 4-15 1z" fill="#f0e0b0" stroke="#000"/>
+      <circle cx="11" cy="15" r="2" fill="#c00000"/><circle cx="15" cy="10" r="2" fill="#0000c0"/><circle cx="21" cy="9" r="2" fill="#008000"/><circle cx="11" cy="21" r="2" fill="#ffd000"/>
+    </symbol>
+    <symbol id="i-compare" viewBox="0 0 32 32">
+      <rect x="3" y="5" width="12" height="20" fill="#fff" stroke="#000"/>
+      <rect x="17" y="7" width="12" height="20" fill="#fff" stroke="#000"/>
+      <g fill="#808080"><rect x="5" y="9" width="8" height="2"/><rect x="5" y="17" width="8" height="2"/><rect x="19" y="11" width="8" height="2"/><rect x="19" y="19" width="8" height="2"/></g>
+      <rect x="5" y="13" width="8" height="2" fill="#c00000"/><rect x="19" y="15" width="8" height="2" fill="#008000"/>
+    </symbol>
+    <symbol id="i-shift" viewBox="0 0 32 32">
+      <rect x="3" y="5" width="26" height="23" fill="#fff" stroke="#000"/>
+      <rect x="3" y="5" width="26" height="5" fill="#000080"/>
+      <rect x="8" y="2" width="2" height="5" fill="#000"/><rect x="22" y="2" width="2" height="5" fill="#000"/>
+      <g stroke="#808080"><path d="M3 16h26M3 22h26M11 10v18M19 10v18"/></g>
+      <rect x="4" y="11" width="6" height="4" fill="#ffd000"/><rect x="12" y="11" width="6" height="4" fill="#4aa0e0"/>
+      <rect x="20" y="17" width="8" height="4" fill="#a050c0"/><rect x="4" y="23" width="6" height="4" fill="#40b040"/>
+      <rect x="12" y="23" width="6" height="4" fill="#ffd000"/>
+    </symbol>
+    <symbol id="i-merge" viewBox="0 0 32 32">
+      <path d="M4 4h11l4 4v13H4z" fill="#fff" stroke="#000"/>
+      <path d="M13 11h11l4 4v13H13z" fill="#fff" stroke="#000"/>
+      <g fill="#000080"><rect x="7" y="9" width="8" height="2"/><rect x="16" y="17" width="9" height="2"/><rect x="16" y="21" width="6" height="2"/></g>
+      <rect x="7" y="13" width="5" height="2" fill="#ffd000"/>
+    </symbol>
+    <symbol id="b-file" viewBox="0 0 32 32">
+      <path d="M7 3h13l6 6v20H7z" fill="#fff" stroke="#000"/><path d="M20 3v6h6" fill="#c0c0c0" stroke="#000"/>
+      <use href="#logo" x="9" y="12" width="14" height="14"/>
+    </symbol>
+    <symbol id="b-shield" viewBox="0 0 32 32">
+      <path d="M16 3l11 4v8c0 7-5 12-11 14C10 27 5 22 5 15V7z" fill="#008080" stroke="#000"/>
+      <path d="M11 16l4 4 7-8" stroke="#fff" stroke-width="3" fill="none"/>
+    </symbol>
+    <symbol id="b-office" viewBox="0 0 32 32">
+      <path d="M6 4h14l6 6v18H6z" fill="#fff" stroke="#000"/><path d="M20 4v6h6" fill="#c0c0c0" stroke="#000"/>
+      <g fill="#808080"><rect x="9" y="13" width="14" height="2"/><rect x="9" y="17" width="14" height="2"/><rect x="9" y="21" width="9" height="2"/></g>
+    </symbol>
+    <symbol id="b-disk" viewBox="0 0 32 32">
+      <rect x="4" y="4" width="24" height="24" fill="#000080" stroke="#000"/>
+      <rect x="9" y="4" width="14" height="9" fill="#c0c0c0" stroke="#000"/><rect x="18" y="6" width="3" height="5" fill="#000080"/>
+      <rect x="8" y="17" width="16" height="11" fill="#fff" stroke="#000"/>
+    </symbol>
+    <symbol id="b-window" viewBox="0 0 32 32">
+      <rect x="3" y="5" width="26" height="22" fill="#c0c0c0" stroke="#000"/>
+      <rect x="4" y="6" width="24" height="5" fill="#000080"/>
+      <rect x="6" y="14" width="9" height="10" fill="#fff" stroke="#808080"/><rect x="17" y="14" width="9" height="4" fill="#fff" stroke="#808080"/><rect x="17" y="20" width="9" height="4" fill="#fff" stroke="#808080"/>
+    </symbol>
+    <symbol id="b-key" viewBox="0 0 32 32">
+      <circle cx="11" cy="16" r="6" fill="#ffd000" stroke="#000"/><circle cx="11" cy="16" r="2" fill="#fff" stroke="#000"/>
+      <path d="M17 15h12v3h-3v4h-3v-4h-6z" fill="#ffd000" stroke="#000"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="inner raised">
+    <a class="start raised" href="#top" aria-label="Bitpack, top of the page">
+      <svg width="22" height="22" aria-hidden="true"><use href="#logo"/></svg>Bitpack
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#why">Why Bitpack</a>
+      <a href="#tools">Tools</a>
+      <a href="#limits">Limitations</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">Questions</a>
+    </nav>
+    <button class="theme-switch" type="button" role="switch" aria-checked="false" id="theme-switch">
+      <span class="box sunken"><svg viewBox="0 0 11 11" aria-hidden="true"><path d="M1 5l3 3 6-6" stroke="currentColor" stroke-width="2" fill="none"/></svg></span>
+      Dark mode
+    </button>
+    <a class="btn raised cta download" href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/Bitpack.exe"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="12" width="14" height="3" fill="#808080" stroke="#000"/><path d="M6 1h4v6h3l-5 5-5-5h3z" fill="#008000" stroke="#000"/></svg>Download</a>
+    <a class="btn raised cta demo" href="#contact">Request a demo</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Your whole office, in a single file.</h1>
+        <p class="lead">Bitpack brings more than 100 work tools – documents, PDF, spreadsheets, reports, images and video – together in one Windows program. Copy it to the computer and start working. No installation, no administrator rights, no Microsoft Office.</p>
+        <div class="actions">
+          <a class="btn raised default download" href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/Bitpack.exe"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="12" width="14" height="3" fill="#808080" stroke="#000"/><path d="M6 1h4v6h3l-5 5-5-5h3z" fill="#008000" stroke="#000"/></svg>Download Bitpack.exe</a>
+          <a class="btn raised" href="#contact">Request a demo</a>
+        </div>
+        <p class="dl-note">Windows 64-bit, one .exe file. Copy it to any folder and run it.</p>
+        <ul class="facts" aria-label="In short">
+          <li class="raised">More than 100 tools</li>
+          <li class="raised">One .exe file</li>
+          <li class="raised">Windows 64-bit</li>
+          <li class="raised">Your data stays with you</li>
+        </ul>
+      </div>
+
+      <div class="desk">
+        <div class="icons" role="group" aria-label="Try it: pick a tool">
+          <button class="icon" data-tool="video" aria-pressed="true"><svg aria-hidden="true"><use href="#i-video"/></svg><span>Video Editor 95</span></button>
+          <button class="icon" data-tool="pdf" aria-pressed="false"><svg aria-hidden="true"><use href="#i-pdf"/></svg><span>PDF Editor 95</span></button>
+          <button class="icon" data-tool="merge" aria-pressed="false"><svg aria-hidden="true"><use href="#i-merge"/></svg><span>Document Merge</span></button>
+          <button class="icon" data-tool="shift" aria-pressed="false"><svg aria-hidden="true"><use href="#i-shift"/></svg><span>Shift Planner 95</span></button>
+          <button class="icon" data-tool="excel" aria-pressed="false"><svg aria-hidden="true"><use href="#i-compare"/></svg><span>Excel Compare 95</span></button>
+          <button class="icon" data-tool="report" aria-pressed="false"><svg aria-hidden="true"><use href="#i-report"/></svg><span>Report Designer 95</span></button>
+          <button class="icon" data-tool="steps" aria-pressed="false"><svg aria-hidden="true"><use href="#i-steps"/></svg><span>Step Recorder 95</span></button>
+          <button class="icon" data-tool="chart" aria-pressed="false"><svg aria-hidden="true"><use href="#i-sheet"/></svg><span>Chart Builder 95</span></button>
+          <button class="icon" data-tool="paint" aria-pressed="false"><svg aria-hidden="true"><use href="#i-paint"/></svg><span>Paint 95</span></button>
+        </div>
+        <div class="window raised tool-window" aria-live="polite">
+          <div class="titlebar"><span class="t" id="tw-title">Video Editor 95</span><span class="caption-btns" aria-hidden="true"><span class="raised">_</span><span class="raised">□</span><span class="raised">×</span></span></div>
+          <div class="window-body" id="tw-body">
+            <h3>Presentation videos without expensive editing software</h3>
+            <p>Put clips, photos and titles on a timeline, add transitions, effects, text and stickers that come and go, then music from the computer.</p>
+            <div class="solves sunken"><b>What it solves</b>Anyone on the team can make a video for a presentation, a training or a promotion – the same day.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="band" id="why">
+    <div class="wrap">
+      <div class="window raised section-window">
+        <div class="titlebar"><span class="t">Why Bitpack.txt</span><span class="caption-btns" aria-hidden="true"><span class="raised">_</span><span class="raised">□</span><span class="raised">×</span></span></div>
+        <div class="window-body">
+          <h2>Fewer programs, fewer licenses, fewer requests to IT.</h2>
+          <p class="intro">In a company, the small everyday jobs – a PDF to change, two exports to compare, 300 letters to generate, a procedure to document – usually each need a separate program. Each one has its own license, its own installation and, often, needs administrator rights.</p>
+          <div class="compare">
+            <div>
+              <h3>Without Bitpack</h3>
+              <ul class="no sunken">
+                <li>One program for PDF, another for images, another for video, another for reports.</li>
+                <li>Paid subscriptions and licenses for each of them, for each person.</li>
+                <li>Installation waits for IT, because it needs administrator rights.</li>
+                <li>Documents go through online conversion sites, company data included.</li>
+                <li>Every program looks and works differently, so people have to be trained every time.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>With Bitpack</h3>
+              <ul class="yes sunken">
+                <li>One program, with more than 100 tools ready to use.</li>
+                <li>One file to copy to the computer, with no installation.</li>
+                <li>It runs on a normal user account, with no administrator rights.</li>
+                <li>Working data stays in the program's folder, on your own computer.</li>
+                <li>All the tools share the same interface: learn one and you know them all.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="band" aria-labelledby="benefits">
+    <div class="wrap">
+      <div class="window raised section-window">
+        <div class="titlebar"><span class="t">Bitpack Properties</span><span class="caption-btns" aria-hidden="true"><span class="raised">?</span><span class="raised">×</span></span></div>
+        <div class="window-body">
+          <h2 id="benefits">What you get, in practice</h2>
+          <p class="intro">Bitpack is made for office computers as they really are: user accounts without administrator rights, no Office on every workstation, and strict rules about where data goes.</p>
+          <div class="benefits">
+            <div class="benefit sunken"><svg aria-hidden="true"><use href="#b-file"/></svg><h3>One single file</h3><p>More than 100 tools in one precompiled program for Windows 64-bit. Copy it and run it.</p></div>
+            <div class="benefit sunken"><svg aria-hidden="true"><use href="#b-shield"/></svg><h3>No administrator rights</h3><p>Everything works on a normal user account. Using it needs nothing from IT.</p></div>
+            <div class="benefit sunken"><svg aria-hidden="true"><use href="#b-office"/></svg><h3>No Microsoft Office</h3><p>It creates and reads Word, Excel, PowerPoint and PDF files by itself. Office does not have to be installed.</p></div>
+            <div class="benefit sunken"><svg aria-hidden="true"><use href="#b-disk"/></svg><h3>Your data stays with you</h3><p>Projects, settings and history live in a local database in the program's folder, not in somebody else's cloud.</p></div>
+            <div class="benefit sunken"><svg aria-hidden="true"><use href="#b-window"/></svg><h3>One interface</h3><p>Every tool looks and works the same way, with clear windows and simple menus. Training happens once.</p></div>
+            <div class="benefit sunken"><svg aria-hidden="true"><use href="#b-key"/></svg><h3>Access per tool</h3><p>Each tool opens with its own account, so every person gets exactly the tools they need.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="band" id="tools">
+    <div class="wrap">
+      <div class="window raised section-window">
+        <div class="titlebar"><span class="t">Bitpack Tools</span><span class="caption-btns" aria-hidden="true"><span class="raised">_</span><span class="raised">□</span><span class="raised">×</span></span></div>
+        <div class="window-body">
+          <h2>What you can do with Bitpack</h2>
+          <p class="intro">A selection of the tools, grouped by the work they do. Pick a category.</p>
+          <div class="tabs" role="tablist" aria-label="Tool categories">
+            <button class="tab" role="tab" id="t-doc" aria-controls="p-doc" aria-selected="true">Documents and PDF</button>
+            <button class="tab" role="tab" id="t-data" aria-controls="p-data" aria-selected="false" tabindex="-1">Data and reports</button>
+            <button class="tab" role="tab" id="t-media" aria-controls="p-media" aria-selected="false" tabindex="-1">Images and video</button>
+            <button class="tab" role="tab" id="t-files" aria-controls="p-files" aria-selected="false" tabindex="-1">Files and archives</button>
+            <button class="tab" role="tab" id="t-it" aria-controls="p-it" aria-selected="false" tabindex="-1">For IT</button>
+            <button class="tab" role="tab" id="t-day" aria-controls="p-day" aria-selected="false" tabindex="-1">Everyday</button>
+          </div>
+          <div class="tabpanel raised" role="tabpanel" id="p-doc" aria-labelledby="t-doc">
+            <ul class="tool-list">
+              <li class="sunken"><b>PDF Editor 95</b><span>Edit PDF files right in the program and export them to Word.</span></li>
+              <li class="sunken"><b>Document Merge</b><span>One Word template plus an Excel or CSV table give you hundreds of personalized documents, in Word or PDF.</span></li>
+              <li class="sunken"><b>Batch PDF converter</b><span>Turn dozens of files into PDF with a single command.</span></li>
+              <li class="sunken"><b>Step Recorder 95</b><span>Press F9 at every step and get a procedure with annotated screenshots, in Word or PDF.</span></li>
+              <li class="sunken"><b>Bitpack Office</b><span>Document and spreadsheet editor with tables, lists, formulas and autosave.</span></li>
+              <li class="sunken"><b>Advanced Notepad 95</b><span>A fast text editor with syntax highlighting for technical files.</span></li>
+            </ul>
+          </div>
+          <div class="tabpanel raised" role="tabpanel" id="p-data" aria-labelledby="t-data" hidden>
+            <ul class="tool-list">
+              <li class="sunken"><b>Excel Compare 95</b><span>Compare two Excel or CSV exports by a key column and get an Excel report of the differences.</span></li>
+              <li class="sunken"><b>Chart Builder 95</b><span>Charts from Excel or CSV, exported as PNG, PDF, PowerPoint, Word or Excel.</span></li>
+              <li class="sunken"><b>Report Designer 95</b><span>Banded reports from databases, Excel or CSV, ready to print as PDF.</span></li>
+              <li class="sunken"><b>SQL Manager Studio Pro</b><span>Open, query and edit SQLite databases with no other software.</span></li>
+              <li class="sunken"><b>Diagram Editor 95</b><span>Diagrams and process charts drawn from ready-made shapes.</span></li>
+            </ul>
+          </div>
+          <div class="tabpanel raised" role="tabpanel" id="p-media" aria-labelledby="t-media" hidden>
+            <ul class="tool-list">
+              <li class="sunken"><b>Video Editor 95</b><span>Clips, photos and titles, transitions, effects, text, stickers and music, exported as a video.</span></li>
+              <li class="sunken"><b>Paint 95</b><span>Quick drawing and image touch-ups, in the classic Paint style.</span></li>
+              <li class="sunken"><b>Batch image resizer</b><span>Hundreds of pictures brought to the same size, with five resize modes.</span></li>
+              <li class="sunken"><b>Icon Editor 95</b><span>Windows .ico icons drawn pixel by pixel.</span></li>
+              <li class="sunken"><b>ICO Converter</b><span>Turn any picture into a Windows icon.</span></li>
+            </ul>
+          </div>
+          <div class="tabpanel raised" role="tabpanel" id="p-files" aria-labelledby="t-files" hidden>
+            <ul class="tool-list">
+              <li class="sunken"><b>Archive Browser</b><span>See what is inside ZIP and TAR archives, preview it, and extract only what you need.</span></li>
+              <li class="sunken"><b>Folder Packer</b><span>Gather and pack whole folders, quickly and neatly.</span></li>
+              <li class="sunken"><b>Folder Recipe</b><span>Draw a folder structure as a tree and create it again, identically, whenever you need it.</span></li>
+              <li class="sunken"><b>Batch text editor</b><span>Apply the same change to many files at once.</span></li>
+            </ul>
+          </div>
+          <div class="tabpanel raised" role="tabpanel" id="p-it" aria-labelledby="t-it" hidden>
+            <ul class="tool-list">
+              <li class="sunken"><b>Code Beautify 95</b><span>Formats and colors XML, HTML, CSS, JavaScript, JSON and SQL.</span></li>
+              <li class="sunken"><b>API tester</b><span>Send HTTP requests, test JWT authentication and keep a library of headers and request bodies.</span></li>
+              <li class="sunken"><b>File compare</b><span>See the differences between two versions of a file, line by line.</span></li>
+              <li class="sunken"><b>BuildIt 95</b><span>Build program interfaces by drag and drop.</span></li>
+            </ul>
+          </div>
+          <div class="tabpanel raised" role="tabpanel" id="p-day" aria-labelledby="t-day" hidden>
+            <ul class="tool-list">
+              <li class="sunken"><b>Bitpack desktop</b><span>A retro desktop that starts every tool, in a single window.</span></li>
+              <li class="sunken"><b>Sticky Notes 95</b><span>Notes stuck on the screen, kept from one day to the next.</span></li>
+              <li class="sunken"><b>Mail Express</b><span>Send e-mail straight from Bitpack, with no other mail program.</span></li>
+              <li class="sunken"><b>Shift Planner 95</b><span>Monthly shift schedules with an hour-by-hour view, rule checks and export to Excel or PDF.</span></li>
+            </ul>
+          </div>
+          <p class="more">…and many more: over 100 tools in the same program.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIMITATIONS -->
+  <section class="band" id="limits">
+    <div class="wrap">
+      <div class="window raised section-window">
+        <div class="titlebar"><span class="t">Limitations.txt</span><span class="caption-btns" aria-hidden="true"><span class="raised">_</span><span class="raised">□</span><span class="raised">×</span></span></div>
+        <div class="window-body">
+          <h2>Limits worth knowing before you start</h2>
+          <p class="intro">Bitpack covers the everyday work of an office, not everything. First the limits that apply to every tool, then those of each tool, grouped like the tool list above.</p>
+          <ul class="limits-general">
+            <li class="sunken"><b>Windows only</b><span>Bitpack runs on Windows 64-bit. It does not run on macOS, Linux, 32-bit Windows or in a browser.</span></li>
+            <li class="sunken"><b>Data stays on each computer</b><span>Every copy keeps its own local database. Two computers do not share projects by themselves, and there is no real-time co-editing. For a backup, copy the program's folder.</span></li>
+            <li class="sunken"><b>English interface</b><span>Menus, windows and messages of the tools are in English.</span></li>
+            <li class="sunken"><b>One login per tool</b><span>Each tool opens with its own account, so the accounts have to be set up before people start.</span></li>
+            <li class="sunken"><b>Not a full Office replacement</b><span>Bitpack creates and reads Word, Excel, PowerPoint and PDF files, but it is not Word or Excel: macros and advanced formatting are not supported.</span></li>
+            <li class="sunken"><b>Some tools need a network</b><span>Sending e-mail and testing APIs need a connection. Everything else works offline.</span></li>
+            <li class="sunken"><b>One font</b><span>Each tool uses one built-in font; there is no font picker.</span></li>
+          </ul>
+          <div class="limit-groups">
+            <fieldset class="limit-group"><legend>Documents and PDF</legend>
+              <div class="limit-tools">
+                <div class="limit-tool"><b>PDF Editor 95</b><ul><li>Scanned PDFs are pictures: their text cannot be edited (no text recognition).</li><li>Export to Word may not keep complex layouts exactly.</li></ul></div>
+                <div class="limit-tool"><b>Document Merge</b><ul><li>The template must be a Word .docx file with {{Field}} placeholders.</li><li>Data comes from Excel (.xlsx) or CSV files: one document per row.</li><li>Word output works on its own; PDF output needs Microsoft Word or LibreOffice on the computer.</li></ul></div>
+                <div class="limit-tool"><b>Batch PDF converter</b><ul><li>Word files get an evaluation watermark from the converter library.</li><li>Old formats (.xls, .ppt, .ods, .odp) are skipped: save them as .xlsx or .pptx first.</li><li>Excel sheets become tables; PowerPoint slides keep only an approximate layout.</li><li>Binary files are skipped; other text files are printed as plain text.</li></ul></div>
+                <div class="limit-tool"><b>Step Recorder 95</b><ul><li>Steps and documents are in English only.</li><li>Projects are saved in Bitpack's own .sr95 format; export to Word or PDF.</li></ul></div>
+                <div class="limit-tool"><b>Bitpack Office</b><ul><li>A lighter editor than Word and Excel: no macros and no advanced formatting.</li></ul></div>
+                <div class="limit-tool"><b>Advanced Notepad 95</b><ul><li>Plain text only: no bold text, pictures or tables.</li><li>One built-in font.</li></ul></div>
+              </div>
+            </fieldset>
+            <fieldset class="limit-group"><legend>Data and reports</legend>
+              <div class="limit-tools">
+                <div class="limit-tool"><b>Excel Compare 95</b><ul><li>Both files need a common key column to match the rows.</li><li>The report is an Excel file.</li></ul></div>
+                <div class="limit-tool"><b>Chart Builder 95</b><ul><li>Data from Excel or CSV files.</li><li>Exported charts are files: they do not update when the data changes.</li></ul></div>
+                <div class="limit-tool"><b>Report Designer 95</b><ul><li>Data from SQL databases, Excel or CSV; output as PDF.</li><li>Report layouts are saved in Bitpack's own .rep95 format.</li></ul></div>
+                <div class="limit-tool"><b>SQL Manager Studio Pro</b><ul><li>SQLite databases only (not SQL Server, MySQL or Oracle).</li></ul></div>
+                <div class="limit-tool"><b>Diagram Editor 95</b><ul><li>Opens and saves only its own .diagram95 files (no Visio or other diagram formats).</li></ul></div>
+              </div>
+            </fieldset>
+            <fieldset class="limit-group"><legend>Images and video</legend>
+              <div class="limit-tools">
+                <div class="limit-tool"><b>Video Editor 95</b><ul><li>Export to AVI keeps the sound, but the files are large (up to 4 GB per video).</li><li>Export to MP4 has no sound.</li><li>Music: MP3, WAV, OGG and FLAC (not M4A or WMA).</li><li>Some phone videos (HEVC / H.265) may not open.</li><li>The original sound of video clips is read through Windows and may not be available on every computer; the music always works.</li></ul></div>
+                <div class="limit-tool"><b>Paint 95</b><ul><li>One picture at a time, without layers, like the classic Paint.</li></ul></div>
+                <div class="limit-tool"><b>Batch image resizer</b><ul><li>Changes the size only: no cropping or retouching.</li><li>Overwriting the originals cannot be undone; saving to another folder keeps them.</li><li>JPG pictures lose a little quality at every save.</li></ul></div>
+                <div class="limit-tool"><b>Icon Editor 95</b><ul><li>Icons are drawn pixel by pixel: made for small icons, not for photos.</li></ul></div>
+                <div class="limit-tool"><b>ICO Converter</b><ul><li>Produces Windows .ico icons only.</li></ul></div>
+              </div>
+            </fieldset>
+            <fieldset class="limit-group"><legend>Files and archives</legend>
+              <div class="limit-tools">
+                <div class="limit-tool"><b>Archive Browser</b><ul><li>ZIP and TAR archives, including .tar.gz, .tar.bz2 and .tar.xz (not RAR or 7z).</li><li>Previews text files as text and other files as a hex dump.</li></ul></div>
+                <div class="limit-tool"><b>Folder Recipe</b><ul><li>Creates the folders only, not the files inside them.</li></ul></div>
+                <div class="limit-tool"><b>Batch text editor</b><ul><li>Plain text files only (not Word, Excel or PDF).</li><li>Files are read with the encoding you choose; files saved in another encoding can show wrong characters.</li><li>Changes are written into the files: keep the .bak backup option on to be able to go back.</li></ul></div>
+              </div>
+            </fieldset>
+            <fieldset class="limit-group"><legend>For IT</legend>
+              <div class="limit-tools">
+                <div class="limit-tool"><b>Code Beautify 95</b><ul><li>XML, HTML, CSS, JavaScript, JSON and SQL only.</li></ul></div>
+                <div class="limit-tool"><b>API tester</b><ul><li>No AWS Signature or NTLM authentication.</li><li>Needs a network connection.</li></ul></div>
+                <div class="limit-tool"><b>File compare</b><ul><li>Text files only (not Word, Excel or PDF).</li></ul></div>
+                <div class="limit-tool"><b>BuildIt 95</b><ul><li>Builds Python (tkinter) program interfaces only.</li></ul></div>
+              </div>
+            </fieldset>
+            <fieldset class="limit-group"><legend>Everyday</legend>
+              <div class="limit-tools">
+                <div class="limit-tool"><b>Bitpack desktop</b><ul><li>Starts the Bitpack tools; it does not replace the Windows desktop or start other programs.</li></ul></div>
+                <div class="limit-tool"><b>Sticky Notes 95</b><ul><li>Notes are kept on that computer only.</li></ul></div>
+                <div class="limit-tool"><b>Mail Express</b><ul><li>Needs a network connection and an e-mail account.</li></ul></div>
+                <div class="limit-tool"><b>Shift Planner 95</b><ul><li>One shift per person per day.</li><li>Public holidays are not built in: you add your own once and copy them to the next year.</li><li>It checks rest, days in a row, weekly hours and staffing; it does not calculate pay.</li><li>Plans are exported as Excel or PDF; they cannot be read back from those files.</li></ul></div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section class="band" id="how">
+    <div class="wrap">
+      <div class="window raised section-window">
+        <div class="titlebar"><span class="t">How it works</span><span class="caption-btns" aria-hidden="true"><span class="raised">_</span><span class="raised">□</span><span class="raised">×</span></span></div>
+        <div class="window-body">
+          <h2>From one file to finished work, in three steps</h2>
+          <ol class="steps">
+            <li class="sunken"><h3>Copy the file</h3><p>Put the Bitpack program in any folder on the computer. Nothing gets installed.</p></li>
+            <li class="sunken"><h3>Open a tool</h3><p>Each tool opens with its own account, so each person sees only the tools they need.</p></li>
+            <li class="sunken"><h3>Get to work</h3><p>Projects and settings are kept automatically, in the local database in the program's folder.</p></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="band" id="faq">
+    <div class="wrap">
+      <div class="window raised section-window">
+        <div class="titlebar"><span class="t">Frequently asked questions</span><span class="caption-btns" aria-hidden="true"><span class="raised">?</span><span class="raised">×</span></span></div>
+        <div class="window-body">
+          <h2>Frequently asked questions</h2>
+          <details class="raised"><summary>Where do I get Bitpack?</summary><div class="answer">Download <a href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/Bitpack.exe">Bitpack.exe</a> (Windows 64-bit). It is the whole program: copy it to any folder and run it.</div></details>
+          <details class="raised"><summary>Does anything need to be installed?</summary><div class="answer">No. Bitpack is a single precompiled file for Windows 64-bit. Copy it to the computer and run it.</div></details>
+          <details class="raised"><summary>Do I need administrator rights?</summary><div class="answer">No. Every tool works on a normal user account.</div></details>
+          <details class="raised"><summary>Do I need Microsoft Office?</summary><div class="answer">No. Bitpack creates and reads Word, Excel, PowerPoint and PDF documents by itself, without Office installed. The one exception is the PDF output of Document Merge, which needs Word or LibreOffice.</div></details>
+          <details class="raised"><summary>Where is the data kept?</summary><div class="answer">In a local database in the program's folder, on your computer. Projects, settings and history are not uploaded to a cloud.</div></details>
+          <details class="raised"><summary>Does it work without the internet?</summary><div class="answer">Yes, except the tools that really work with a network: sending e-mail and testing APIs.</div></details>
+          <details class="raised"><summary>Why does it look like Windows 95?</summary><div class="answer">Because the classic interface is clear and easy to learn: windows, menus and buttons that everybody recognizes. Every tool uses it the same way.</div></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="band" id="contact">
+    <div class="wrap">
+      <div class="window raised dialog" role="region" aria-labelledby="contact-title">
+        <div class="titlebar"><span class="t">Bitpack</span><span class="caption-btns" aria-hidden="true"><span class="raised">×</span></span></div>
+        <div class="window-body">
+          <svg width="52" height="52" aria-hidden="true"><use href="#logo"/></svg>
+          <div>
+            <h2 id="contact-title">Want to see Bitpack at work?</h2>
+            <p>We will show you the tools your team needs, on your own computers, just as they are. Or download it and try it yourself.</p>
+            <div class="actions">
+              <!-- Replace address@company.com with the real contact address -->
+              <a class="btn raised default" href="mailto:tudor16mn@gmail.com?subject=Bitpack%20demo">Request a demo</a>
+              <a class="btn raised download" href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/Bitpack.exe"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="12" width="14" height="3" fill="#808080" stroke="#000"/><path d="M6 1h4v6h3l-5 5-5-5h3z" fill="#008000" stroke="#000"/></svg>Download Bitpack.exe</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Bitpack 0.95.0 – Muap, Retro Computing Division</p>
+  <p>Windows is a registered trademark of Microsoft Corporation. Bitpack is not affiliated with Microsoft.</p>
+</footer>
+
+<script>
+  // Light / dark: follows Windows until the switch is used, then remembers the choice
+  var rootEl = document.documentElement;
+  var themeSwitch = document.getElementById("theme-switch");
+  var systemDark = window.matchMedia("(prefers-color-scheme: dark)");
+  function isDark() {
+    var chosen = rootEl.getAttribute("data-theme");
+    return chosen ? chosen === "dark" : systemDark.matches;
+  }
+  function showTheme() { themeSwitch.setAttribute("aria-checked", isDark() ? "true" : "false"); }
+  themeSwitch.addEventListener("click", function () {
+    var next = isDark() ? "light" : "dark";
+    rootEl.setAttribute("data-theme", next);
+    try { localStorage.setItem("bitpack-theme", next); } catch (e) {}
+    showTheme();
+  });
+  if (systemDark.addEventListener) { systemDark.addEventListener("change", showTheme); }
+  showTheme();
+
+  // Hero: the icons open their window
+  var TOOLS = {
+    video: ["Video Editor 95", "Presentation videos without expensive editing software",
+      "Put clips, photos and titles on a timeline, add transitions, effects, text and stickers that come and go, then music from the computer.",
+      "Anyone on the team can make a video for a presentation, a training or a promotion – the same day."],
+    pdf: ["PDF Editor 95", "Change a PDF without rebuilding it from scratch",
+      "Work directly on the PDF inside Bitpack, and when you need it editable, export it to Word.",
+      "Company documents no longer go through conversion websites, and nobody needs a paid PDF editor of their own."],
+    merge: ["Document Merge", "Hundreds of personalized documents in one go",
+      "Make the template once in Word; the data comes from an Excel or CSV table. Bitpack writes one document for every row, in Word or PDF.",
+      "Contracts, certificates, letters or labels ready in minutes, with no copy and paste and no typing mistakes."],
+    shift: ["Shift Planner 95", "The team's schedule for the month, with the rules checked for you",
+      "Type a shift code in a day and Bitpack moves to the next one; patterns fill a whole month. The hours view shows who is at work, hour by hour, and Bitpack flags too little rest between shifts, too many days in a row, too many hours in a week and shifts with too few people.",
+      "A schedule that keeps to the rules is ready in an afternoon and goes out as Excel or PDF – no spreadsheet full of formulas."],
+    excel: ["Excel Compare 95", "See at once what changed between two exports",
+      "Pick two Excel or CSV files and the column that matches their rows. You get an Excel report of what was added, what disappeared and what changed.",
+      "Checking stock, prices or lists no longer means hours of comparing by eye."],
+    report: ["Report Designer 95", "Good-looking reports from the data you already have",
+      "Lay out the header, the rows and the totals in bands; the data comes from a database, Excel or CSV. The result is a PDF ready to send.",
+      "The same report, rebuilt at any time with new data, without formatting it again."],
+    steps: ["Step Recorder 95", "Procedures that write themselves, with screenshots",
+      "Press F9 at every step: Bitpack takes the screenshot, you add arrows and notes and blur sensitive data. At the end you have the document in Word or PDF.",
+      "Training new colleagues and documenting processes takes minutes, not days."],
+    chart: ["Chart Builder 95", "Clear charts from any table",
+      "Load an Excel or CSV file, pick the chart type and export it as a picture, PDF, PowerPoint, Word or Excel.",
+      "Presentations and monthly reports get clean charts without depending on Office."],
+    paint: ["Paint 95", "Quick touch-ups without a complicated graphics program",
+      "Crop, draw, write and highlight on pictures, in an interface everybody already knows.",
+      "Screenshots, simple posters and pictures for documents are sorted on the spot."]
+  };
+  var icons = document.querySelectorAll(".icon");
+  var title = document.getElementById("tw-title");
+  var body = document.getElementById("tw-body");
+  var win = document.querySelector(".tool-window");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function show(key) {
+    var t = TOOLS[key];
+    if (!t) return;
+    icons.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.tool === key ? "true" : "false"); });
+    title.textContent = t[0];
+    body.innerHTML = "";
+    var h = document.createElement("h3"); h.textContent = t[1];
+    var p = document.createElement("p"); p.textContent = t[2];
+    var s = document.createElement("div"); s.className = "solves sunken";
+    var b = document.createElement("b"); b.textContent = "What it solves";
+    s.appendChild(b); s.appendChild(document.createTextNode(t[3]));
+    body.appendChild(h); body.appendChild(p); body.appendChild(s);
+    if (!reduce) { win.classList.remove("opening"); void win.offsetWidth; win.classList.add("opening"); }
+  }
+  icons.forEach(function (b) { b.addEventListener("click", function () { show(b.dataset.tool); }); });
+
+  // Tool categories: Win95 tabs
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  function select(tab) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener("click", function () { select(t); });
+    t.addEventListener("keydown", function (e) {
+      var j = null;
+      if (e.key === "ArrowRight") j = (i + 1) % tabs.length;
+      if (e.key === "ArrowLeft") j = (i - 1 + tabs.length) % tabs.length;
+      if (j !== null) { e.preventDefault(); select(tabs[j]); tabs[j].focus(); }
+    });
+  });
+</script>
+</body>
+</html>
