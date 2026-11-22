@@ -516,6 +516,7 @@
                 <li>Installation waits for IT, because it needs administrator rights.</li>
                 <li>Documents go through online conversion sites, company data included.</li>
                 <li>Every program looks and works differently, so people have to be trained every time.</li>
+                <li>Small jobs go through the command prompt or PowerShell, which many companies block.</li>
               </ul>
             </div>
             <div>
@@ -524,6 +525,7 @@
                 <li>One program, with more than 100 tools ready to use.</li>
                 <li>One file to copy to the computer, with no installation.</li>
                 <li>It runs on a normal user account, with no administrator rights.</li>
+                <li>It starts no Windows programs: no command prompt, no PowerShell, nothing for IT to block.</li>
                 <li>Working data stays in the program's folder, on your own computer.</li>
                 <li>All the tools share the same interface: learn one and you know them all.</li>
               </ul>
@@ -613,6 +615,8 @@
               <li class="sunken"><b>API tester</b><span>Send HTTP requests, test JWT authentication and keep a library of headers and request bodies.</span></li>
               <li class="sunken"><b>File compare</b><span>See the differences between two versions of a file, line by line.</span></li>
               <li class="sunken"><b>BuildIt 95</b><span>Build program interfaces by drag and drop.</span></li>
+              <li class="sunken"><b>Bitpack terminals</b><span>Command prompt, PowerShell and DOS-style windows whose commands run inside Bitpack. HELP lists everything they can do.</span></li>
+              <li class="sunken"><b>AI Assistant</b><span>Ask in plain words for the Service Tag, the Windows key, devices with problems, recent errors, services or Wi-Fi networks.</span></li>
             </ul>
           </div>
           <div class="tabpanel raised" role="tabpanel" id="p-day" aria-labelledby="t-day" hidden>
@@ -645,6 +649,7 @@
             <li class="sunken"><b>Not a full Office replacement</b><span>Bitpack creates and reads Word, Excel, PowerPoint and PDF files, but it is not Word or Excel: macros and advanced formatting are not supported.</span></li>
             <li class="sunken"><b>Some tools need a network</b><span>Sending e-mail and testing APIs need a connection. Everything else works offline.</span></li>
             <li class="sunken"><b>One font</b><span>Each tool uses one built-in font; there is no font picker.</span></li>
+            <li class="sunken"><b>No Windows commands</b><span>Bitpack starts no Windows program (command prompt, PowerShell, wmic, netsh, powercfg, shutdown…). Common commands such as ping, ipconfig, dir or tasklist are answered by Bitpack itself; anything else is refused. That is also why there is no battery report.</span></li>
           </ul>
           <div class="limit-groups">
             <fieldset class="limit-group"><legend>Documents and PDF</legend>
@@ -688,6 +693,8 @@
                 <div class="limit-tool"><b>API tester</b><ul><li>No AWS Signature or NTLM authentication.</li><li>Needs a network connection.</li></ul></div>
                 <div class="limit-tool"><b>File compare</b><ul><li>Text files only (not Word, Excel or PDF).</li></ul></div>
                 <div class="limit-tool"><b>BuildIt 95</b><ul><li>Builds Python (tkinter) program interfaces only.</li></ul></div>
+                <div class="limit-tool"><b>Bitpack terminals</b><ul><li>Only the commands HELP lists: no pipes, redirection, scripts or other programs.</li><li>Commands answer in English, as on an English Windows.</li></ul></div>
+                <div class="limit-tool"><b>AI Assistant</b><ul><li>Answers from a fixed list of commands; it is not a chat AI.</li><li>Saved Wi-Fi passwords are shown only with administrator rights.</li><li>Restart, shut down and log out happen right after you confirm.</li></ul></div>
               </div>
             </fieldset>
             <fieldset class="limit-group"><legend>Everyday</legend>
@@ -731,6 +738,7 @@
           <details class="raised"><summary>Where do I get Bitpack?</summary><div class="answer">Download <a href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/Bitpack.exe">Bitpack.exe</a> (Windows 64-bit). It is the whole program: copy it to any folder and run it.</div></details>
           <details class="raised"><summary>Does anything need to be installed?</summary><div class="answer">No. Bitpack is a single precompiled file for Windows 64-bit. Copy it to the computer and run it.</div></details>
           <details class="raised"><summary>Do I need administrator rights?</summary><div class="answer">No. Every tool works on a normal user account.</div></details>
+          <details class="raised"><summary>Does Bitpack run Windows commands or scripts?</summary><div class="answer">No. Bitpack starts no Windows program: no command prompt, no PowerShell, no scripts. The commands its terminals and tools need (ping, ipconfig, tasklist, systeminfo and others) are answered by Bitpack itself, so it also works where the company blocks the command prompt and PowerShell.</div></details>
           <details class="raised"><summary>Do I need Microsoft Office?</summary><div class="answer">No. Bitpack creates and reads Word, Excel, PowerPoint and PDF documents by itself, without Office installed. The one exception is the PDF output of Document Merge, which needs Word or LibreOffice.</div></details>
           <details class="raised"><summary>Where is the data kept?</summary><div class="answer">In a local database in the program's folder, on your computer. Projects, settings and history are not uploaded to a cloud.</div></details>
           <details class="raised"><summary>Does it work without the internet?</summary><div class="answer">Yes, except the tools that really work with a network: sending e-mail and testing APIs.</div></details>
