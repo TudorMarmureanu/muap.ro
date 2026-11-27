@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bitpack – more than 100 office tools in a single file</title>
-<meta name="description" content="Bitpack: more than 100 tools for documents, PDF, data, images and video in one Windows program. No installation, no administrator rights, no Microsoft Office.">
+<title>Bitpack – more than 100 IT and office tools in a single file</title>
+<meta name="description" content="Bitpack: more than 100 tools for IT support, network monitoring, documents, PDF, data, images and video in one Windows program. No installation, no administrator rights, no Microsoft Office.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -210,6 +210,7 @@
   .tool-window p { margin: 0 0 10px; }
   .tool-window .solves { padding: 10px 12px; font-size: 16px; margin-top: 12px; }
   .tool-window .solves b { display: block; margin-bottom: 2px; }
+  .dialog .mail { margin: 10px 0 0; font-size: 15px; }
   .opening { animation: open .18s steps(4) both; }
   @keyframes open { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
 
@@ -314,6 +315,21 @@
   .dialog p { margin: 0 0 18px; }
   .dialog .actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
+  .scenarios { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .scenario { padding: 16px 18px; }
+  .scenario h3 { margin: 0 0 4px; font-size: 18px; line-height: 1.3; }
+  .scenario .num { display: inline-block; min-width: 1.6em; color: var(--step-num); font-family: var(--display); }
+  .scenario .who { margin: 0 0 8px; color: var(--ink-soft); font-size: 15.5px; font-style: italic; }
+  .scenario ul { margin: 0 0 10px; padding-left: 18px; font-size: 15.5px; }
+  .scenario li { margin: 0 0 4px; }
+  .scenario .tech { padding: 8px 10px; font-size: 14.5px; color: var(--ink-soft); }
+  .scenario .tech b { display: block; color: var(--ink); font-size: 14.5px; margin-bottom: 2px; }
+  .reasons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 0 0 24px; padding: 0; list-style: none; }
+  .reasons li { padding: 12px 14px; font-size: 15.5px; color: var(--ink-soft); }
+  .reasons b { display: block; color: var(--ink); font-size: 16px; margin-bottom: 2px; }
+  @media (max-width: 1100px) { .reasons { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 920px) { .scenarios { grid-template-columns: 1fr; } }
+  @media (max-width: 620px) { .reasons { grid-template-columns: 1fr; } }
   footer { color: #ffffff; text-align: center; padding: 34px 16px 44px; font-size: 15px; }
   footer p { margin: 4px 0; text-shadow: 1px 1px 0 rgba(0,0,0,.5); }
 
@@ -405,6 +421,14 @@
       <g fill="#000080"><rect x="7" y="9" width="8" height="2"/><rect x="16" y="17" width="9" height="2"/><rect x="16" y="21" width="6" height="2"/></g>
       <rect x="7" y="13" width="5" height="2" fill="#ffd000"/>
     </symbol>
+    <symbol id="i-net" viewBox="0 0 32 32">
+      <rect x="3" y="4" width="26" height="19" fill="#c0c0c0" stroke="#000"/>
+      <rect x="5" y="6" width="22" height="15" fill="#008080"/>
+      <polyline points="6,15 10,15 12,10 15,19 18,12 20,15 26,15" fill="none" stroke="#00ff00" stroke-width="1.6"/>
+      <rect x="12" y="23" width="8" height="3" fill="#808080" stroke="#000"/>
+      <rect x="8" y="26" width="16" height="3" fill="#c0c0c0" stroke="#000"/>
+      <circle cx="25" cy="8" r="1.5" fill="#00ff00"/>
+    </symbol>
     <symbol id="b-file" viewBox="0 0 32 32">
       <path d="M7 3h13l6 6v20H7z" fill="#fff" stroke="#000"/><path d="M20 3v6h6" fill="#c0c0c0" stroke="#000"/>
       <use href="#logo" x="9" y="12" width="14" height="14"/>
@@ -441,7 +465,9 @@
     </a>
     <nav class="nav" aria-label="Sections">
       <a href="#why">Why Bitpack</a>
+      <a href="#scenarios">Scenarios</a>
       <a href="#tools">Tools</a>
+      <a href="#tech">Technical</a>
       <a href="#limits">Limitations</a>
       <a href="#how">How it works</a>
       <a href="#faq">Questions</a>
@@ -461,15 +487,15 @@
     <div class="wrap hero-grid">
       <div>
         <h1>Your whole office, in a single file.</h1>
-        <p class="lead">Bitpack brings more than 100 work tools – documents, PDF, spreadsheets, reports, images and video – together in one Windows program. Copy it to the computer and start working. No installation, no administrator rights, no Microsoft Office.</p>
+        <p class="lead">Bitpack brings more than 100 work tools – IT support, network monitoring, documents, PDF, spreadsheets, reports, images and video – together in one Windows program. Copy it to the computer and start working. No installation, no administrator rights, no Microsoft Office.</p>
         <div class="actions">
-          <a class="btn raised default download" href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/Bitpack.exe"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="12" width="14" height="3" fill="#808080" stroke="#000"/><path d="M6 1h4v6h3l-5 5-5-5h3z" fill="#008000" stroke="#000"/></svg>Download Bitpack.exe</a>
+          <a class="btn raised default download" href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/Bitpack.exe"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="12" width="14" height="3" fill="#808080" stroke="#000"/><path d="M6 1h4v6h3l-5 5-5-5h3z" fill="#008000" stroke="#000"/></svg>Download Bitpack</a>
           <a class="btn raised" href="#contact">Request a demo</a>
         </div>
-        <p class="dl-note">Windows 64-bit, one .exe file. Copy it to any folder and run it.</p>
+        <p class="dl-note">Windows 64-bit, one file. Copy it to any folder and run it.</p>
         <ul class="facts" aria-label="In short">
           <li class="raised">More than 100 tools</li>
-          <li class="raised">One .exe file</li>
+          <li class="raised">One single file</li>
           <li class="raised">Windows 64-bit</li>
           <li class="raised">Your data stays with you</li>
         </ul>
@@ -477,18 +503,18 @@
 
       <div class="desk">
         <div class="icons" role="group" aria-label="Try it: pick a tool">
-          <button class="icon" data-tool="video" aria-pressed="true"><svg aria-hidden="true"><use href="#i-video"/></svg><span>Video Editor 95</span></button>
-          <button class="icon" data-tool="pdf" aria-pressed="false"><svg aria-hidden="true"><use href="#i-pdf"/></svg><span>PDF Editor 95</span></button>
+          <button class="icon" data-tool="video" aria-pressed="true"><svg aria-hidden="true"><use href="#i-video"/></svg><span>Video Editor</span></button>
+          <button class="icon" data-tool="pdf" aria-pressed="false"><svg aria-hidden="true"><use href="#i-pdf"/></svg><span>PDF Editor</span></button>
           <button class="icon" data-tool="merge" aria-pressed="false"><svg aria-hidden="true"><use href="#i-merge"/></svg><span>Document Merge</span></button>
-          <button class="icon" data-tool="shift" aria-pressed="false"><svg aria-hidden="true"><use href="#i-shift"/></svg><span>Shift Planner 95</span></button>
-          <button class="icon" data-tool="excel" aria-pressed="false"><svg aria-hidden="true"><use href="#i-compare"/></svg><span>Excel Compare 95</span></button>
-          <button class="icon" data-tool="report" aria-pressed="false"><svg aria-hidden="true"><use href="#i-report"/></svg><span>Report Designer 95</span></button>
-          <button class="icon" data-tool="steps" aria-pressed="false"><svg aria-hidden="true"><use href="#i-steps"/></svg><span>Step Recorder 95</span></button>
-          <button class="icon" data-tool="chart" aria-pressed="false"><svg aria-hidden="true"><use href="#i-sheet"/></svg><span>Chart Builder 95</span></button>
-          <button class="icon" data-tool="paint" aria-pressed="false"><svg aria-hidden="true"><use href="#i-paint"/></svg><span>Paint 95</span></button>
+          <button class="icon" data-tool="shift" aria-pressed="false"><svg aria-hidden="true"><use href="#i-shift"/></svg><span>Shift Planner</span></button>
+          <button class="icon" data-tool="excel" aria-pressed="false"><svg aria-hidden="true"><use href="#i-compare"/></svg><span>Excel Compare</span></button>
+          <button class="icon" data-tool="report" aria-pressed="false"><svg aria-hidden="true"><use href="#i-report"/></svg><span>Report Designer</span></button>
+          <button class="icon" data-tool="steps" aria-pressed="false"><svg aria-hidden="true"><use href="#i-steps"/></svg><span>Step Recorder</span></button>
+          <button class="icon" data-tool="chart" aria-pressed="false"><svg aria-hidden="true"><use href="#i-sheet"/></svg><span>Chart Builder</span></button>
+          <button class="icon" data-tool="net" aria-pressed="false"><svg aria-hidden="true"><use href="#i-net"/></svg><span>Network Monitor</span></button>
         </div>
         <div class="window raised tool-window" aria-live="polite">
-          <div class="titlebar"><span class="t" id="tw-title">Video Editor 95</span><span class="caption-btns" aria-hidden="true"><span class="raised">_</span><span class="raised">□</span><span class="raised">×</span></span></div>
+          <div class="titlebar"><span class="t" id="tw-title">Video Editor</span><span class="caption-btns" aria-hidden="true"><span class="raised">_</span><span class="raised">□</span><span class="raised">×</span></span></div>
           <div class="window-body" id="tw-body">
             <h3>Presentation videos without expensive editing software</h3>
             <p>Put clips, photos and titles on a timeline, add transitions, effects, text and stickers that come and go, then music from the computer.</p>
@@ -536,6 +562,70 @@
     </div>
   </section>
 
+  <!-- SCENARIOS -->
+  <section class="band" id="scenarios">
+    <div class="wrap">
+      <div class="window raised section-window">
+        <div class="titlebar"><span class="t">Usage scenarios</span><span class="caption-btns" aria-hidden="true"><span class="raised">_</span><span class="raised">□</span><span class="raised">×</span></span></div>
+        <div class="window-body">
+          <h2>Where Bitpack is used, and why</h2>
+          <p class="intro">Bitpack goes where the work is: a locked-down office PC, a technician's USB stick, a server share. These are the everyday situations it is made for, with the tools used and the technical points behind them.</p>
+          <ul class="reasons">
+            <li class="raised"><b>Locked-down PCs</b>Standard user, no installation, cmd and PowerShell blocked – Bitpack needs none of them.</li>
+            <li class="raised"><b>Damaged systems</b>It reads the PC through Python and psutil, not WMI, PowerShell or the registry.</li>
+            <li class="raised"><b>No licence per tool</b>PDF, documents, comparisons, APIs, SQL, monitoring and tickets in one file.</li>
+            <li class="raised"><b>Data stays inside</b>Documents are processed on the PC; everything is kept in a local database.</li>
+            <li class="raised"><b>One way of working</b>The same windows, menus and shortcuts everywhere: one training.</li>
+          </ul>
+          <div class="scenarios">
+            <article class="scenario sunken">
+              <h3><span class="num">1</span>IT support on a locked-down PC</h3>
+              <p class="who">A user's PC is slow or a program fails; the technician has no administrator rights there, and the command prompt and PowerShell are blocked.</p>
+              <ul><li><b>Hardware Monitor</b>, <b>Process Viewer</b>, <b>System Information</b>: load of processor, memory, disk and network, and who uses it</li><li><b>Disk Utility</b> and <b>Junk File Manager</b>: what fills the disk, and what can go</li><li><b>Terminal</b>: ipconfig, netstat -o, tasklist, systeminfo, ping, nslookup</li><li><b>Step Recorder</b>: the fix documented with screenshots, for the Knowledge Base</li></ul>
+              <div class="tech raised"><b>Technical points</b>System data comes from psutil, and the terminal commands are answered by Bitpack, so a policy that blocks cmd.exe and powershell.exe does not stop them. Runs as a standard user, nothing installed.</div>
+            </article>
+            <article class="scenario sunken">
+              <h3><span class="num">2</span>Starting or running a small IT department</h3>
+              <p class="who">One to five people support 20 to 300 workstations, with no budget for a service desk suite.</p>
+              <ul><li><b>Ticket System</b>: areas, Level 1 / Level 2, triage, SLA, history, Excel export</li><li><b>Knowledge Base</b> and <b>Step Recorder</b>: procedures written once, found by search</li><li><b>Shift Planner</b>: the support and on-call schedule, with rest and hour rules checked</li><li><b>Copy App</b> and <b>Smart Backup Tool</b>: kits copied from servers with saved profiles, folders backed up</li></ul>
+              <div class="tech raised"><b>Technical points</b>Each Bitpack copy keeps its data in one SQLite database (Config/dbo_bitpack.db); it can be exported and imported, or backed up by copying the Config folder.</div>
+            </article>
+            <article class="scenario sunken">
+              <h3><span class="num">3</span>Watching the network services</h3>
+              <p class="who">The team wants to know about a dead share, an offline printer or an expiring certificate before the users call.</p>
+              <ul><li><b>Network Monitor</b>: each device watched on the service that matters – 445 shares, 3389 remote desktop, 1433 SQL Server, 9100 printers, 554 cameras</li><li>Web pages checked for their answer and for a text on the page; DNS names for their address</li><li>Up / Warning / Down, response time, uptime for 24 hours and 7 days, a beep, a report for Excel</li><li><b>Port Scanner</b>: the open ports of a server, added to the monitor with one click</li></ul>
+              <div class="tech raised"><b>Technical points</b>TCP connections, web requests and DNS lookups made by Python; Down only after a set number of failed checks; HTTPS certificates verified, with a warning days before they expire.</div>
+            </article>
+            <article class="scenario sunken">
+              <h3><span class="num">4</span>Office work without extra licences</h3>
+              <p class="who">Departments change PDFs, produce personalised documents and compare exports, and not every PC has Office.</p>
+              <ul><li><b>PDF Editor</b>, <b>PDF Tools</b>, <b>Bulk PDF Converter</b>: PDFs edited and many files converted at once</li><li><b>Document Merge</b>: one Word template + an Excel table = one contract, certificate or letter per row</li><li><b>Excel Compare</b>: two exports compared by a key column, differences in an Excel report</li><li><b>Chart Builder</b> and <b>Report Designer</b>: charts and reports from Excel, CSV or SQLite</li></ul>
+              <div class="tech raised"><b>Technical points</b>Word, Excel, PowerPoint and PDF files are read and written by libraries inside Bitpack (python-docx, openpyxl, python-pptx, PyMuPDF, reportlab); documents never go to online converters.</div>
+            </article>
+            <article class="scenario sunken">
+              <h3><span class="num">5</span>Data, integration and development work</h3>
+              <p class="who">An engineer has to test an API or look into a database on a PC where Postman, a database client or an IDE cannot be installed.</p>
+              <ul><li><b>API Tool</b>: HTTP requests, saved headers and bodies, JWT authentication</li><li><b>SQLite tools</b>: management studio, executor, diagram, designer, comparison</li><li><b>Code Beautify</b>, <b>Hex Editor</b>, <b>Regex Tester</b>, <b>Universal Converter</b></li><li><b>Python IDE</b>: small scripts written and run inside Bitpack</li></ul>
+              <div class="tech raised"><b>Technical points</b>The database tools work with SQLite files; the API Tool reaches whatever address you give it, from the user's own PC.</div>
+            </article>
+            <article class="scenario sunken">
+              <h3><span class="num">6</span>Training and documentation</h3>
+              <p class="who">New colleagues have to learn the procedures, and the procedures have to stay written down.</p>
+              <ul><li><b>Step Recorder</b>: F9 at every step, arrows, numbers, blur on sensitive data, then Word or PDF</li><li><b>Video Editor</b> and <b>Screen Recorder</b>: short training videos</li><li><b>Quiz Maker</b> and <b>Quiz Test</b>: a check of what was learned</li><li><b>Knowledge Base</b>: everything in one searchable place</li></ul>
+              <div class="tech raised"><b>Technical points</b>Screenshots and recordings stay on the PC; procedures are saved as files and exported to Word or PDF.</div>
+            </article>
+            <article class="scenario sunken">
+              <h3><span class="num">7</span>A portable kit for the field</h3>
+              <p class="who">A technician works in shops, branches or at customers, often with a slow connection or none.</p>
+              <ul><li>The Bitpack folder, after the first setup, carried on a USB drive or a server share</li><li>Most tools work offline</li><li><b>System Compatibility Check</b>: a PC verified before work starts</li><li><b>Automatic</b> and <b>Manual Repair</b> when Bitpack itself is damaged</li></ul>
+              <div class="tech raised"><b>Technical points</b>Everything Bitpack keeps is in the Config folder next to the Bitpack file; copying the folder moves the tools and their data together.</div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- BENEFITS -->
   <section class="band" aria-labelledby="benefits">
     <div class="wrap">
@@ -575,29 +665,29 @@
           </div>
           <div class="tabpanel raised" role="tabpanel" id="p-doc" aria-labelledby="t-doc">
             <ul class="tool-list">
-              <li class="sunken"><b>PDF Editor 95</b><span>Edit PDF files right in the program and export them to Word.</span></li>
+              <li class="sunken"><b>PDF Editor</b><span>Edit PDF files right in the program and export them to Word.</span></li>
               <li class="sunken"><b>Document Merge</b><span>One Word template plus an Excel or CSV table give you hundreds of personalized documents, in Word or PDF.</span></li>
-              <li class="sunken"><b>Batch PDF converter</b><span>Turn dozens of files into PDF with a single command.</span></li>
-              <li class="sunken"><b>Step Recorder 95</b><span>Press F9 at every step and get a procedure with annotated screenshots, in Word or PDF.</span></li>
+              <li class="sunken"><b>Bulk PDF Converter</b><span>Turn dozens of files – Word, Excel, PowerPoint, CSV, pictures, text – into PDF at once.</span></li>
+              <li class="sunken"><b>Step Recorder</b><span>Press F9 at every step and get a procedure with annotated screenshots, in Word or PDF.</span></li>
               <li class="sunken"><b>Bitpack Office</b><span>Document and spreadsheet editor with tables, lists, formulas and autosave.</span></li>
-              <li class="sunken"><b>Advanced Notepad 95</b><span>A fast text editor with syntax highlighting for technical files.</span></li>
+              <li class="sunken"><b>Advanced Notepad</b><span>A fast text editor with syntax highlighting for technical files.</span></li>
             </ul>
           </div>
           <div class="tabpanel raised" role="tabpanel" id="p-data" aria-labelledby="t-data" hidden>
             <ul class="tool-list">
-              <li class="sunken"><b>Excel Compare 95</b><span>Compare two Excel or CSV exports by a key column and get an Excel report of the differences.</span></li>
-              <li class="sunken"><b>Chart Builder 95</b><span>Charts from Excel or CSV, exported as PNG, PDF, PowerPoint, Word or Excel.</span></li>
-              <li class="sunken"><b>Report Designer 95</b><span>Banded reports from databases, Excel or CSV, ready to print as PDF.</span></li>
+              <li class="sunken"><b>Excel Compare</b><span>Compare two Excel or CSV exports by a key column and get an Excel report of the differences.</span></li>
+              <li class="sunken"><b>Chart Builder</b><span>Charts from Excel or CSV, exported as PNG, PDF, PowerPoint, Word or Excel.</span></li>
+              <li class="sunken"><b>Report Designer</b><span>Banded reports from databases, Excel or CSV, ready to print as PDF.</span></li>
               <li class="sunken"><b>SQL Manager Studio Pro</b><span>Open, query and edit SQLite databases with no other software.</span></li>
-              <li class="sunken"><b>Diagram Editor 95</b><span>Diagrams and process charts drawn from ready-made shapes.</span></li>
+              <li class="sunken"><b>Diagram Editor</b><span>Diagrams and process charts drawn from ready-made shapes.</span></li>
             </ul>
           </div>
           <div class="tabpanel raised" role="tabpanel" id="p-media" aria-labelledby="t-media" hidden>
             <ul class="tool-list">
-              <li class="sunken"><b>Video Editor 95</b><span>Clips, photos and titles, transitions, effects, text, stickers and music, exported as a video.</span></li>
-              <li class="sunken"><b>Paint 95</b><span>Quick drawing and image touch-ups, in the classic Paint style.</span></li>
+              <li class="sunken"><b>Video Editor</b><span>Clips, photos and titles, transitions, effects, text, stickers and music, exported as a video.</span></li>
+              <li class="sunken"><b>Paint</b><span>Quick drawing and image touch-ups, in the classic Paint style.</span></li>
               <li class="sunken"><b>Batch image resizer</b><span>Hundreds of pictures brought to the same size, with five resize modes.</span></li>
-              <li class="sunken"><b>Icon Editor 95</b><span>Windows .ico icons drawn pixel by pixel.</span></li>
+              <li class="sunken"><b>Icon Editor</b><span>Windows .ico icons drawn pixel by pixel.</span></li>
               <li class="sunken"><b>ICO Converter</b><span>Turn any picture into a Windows icon.</span></li>
             </ul>
           </div>
@@ -611,23 +701,49 @@
           </div>
           <div class="tabpanel raised" role="tabpanel" id="p-it" aria-labelledby="t-it" hidden>
             <ul class="tool-list">
-              <li class="sunken"><b>Code Beautify 95</b><span>Formats and colors XML, HTML, CSS, JavaScript, JSON and SQL.</span></li>
+              <li class="sunken"><b>Network Monitor</b><span>Servers, printers, web pages and DNS names watched all the time: Up, Warning or Down, response time, uptime, certificate expiry, a report for Excel.</span></li>
+              <li class="sunken"><b>Port Scanner</b><span>The open ports of a server or a device in seconds, added to the Network Monitor with one click.</span></li>
+              <li class="sunken"><b>Ticket System</b><span>Support tickets with areas, Level 1 and Level 2, triage, SLA, history and export to Excel.</span></li>
+              <li class="sunken"><b>Code Beautify</b><span>Formats and colors XML, HTML, CSS, JavaScript, JSON and SQL.</span></li>
               <li class="sunken"><b>API tester</b><span>Send HTTP requests, test JWT authentication and keep a library of headers and request bodies.</span></li>
               <li class="sunken"><b>File compare</b><span>See the differences between two versions of a file, line by line.</span></li>
-              <li class="sunken"><b>BuildIt 95</b><span>Build program interfaces by drag and drop.</span></li>
-              <li class="sunken"><b>Bitpack terminals</b><span>Command prompt, PowerShell and DOS-style windows whose commands run inside Bitpack. HELP lists everything they can do.</span></li>
-              <li class="sunken"><b>AI Assistant</b><span>Ask in plain words for the Service Tag, the Windows key, devices with problems, recent errors, services or Wi-Fi networks.</span></li>
+              <li class="sunken"><b>BuildIt</b><span>Build program interfaces by drag and drop.</span></li>
+              <li class="sunken"><b>Bitpack Terminal</b><span>One command line with the cmd and the PowerShell commands together – dir, ping, ipconfig, netstat, Get-ChildItem – answered by Bitpack itself. HELP lists them all.</span></li>
+              <li class="sunken"><b>AI Assistant</b><span>Ask in plain words about the computer: system, memory, disks, network cards, running programs.</span></li>
             </ul>
           </div>
           <div class="tabpanel raised" role="tabpanel" id="p-day" aria-labelledby="t-day" hidden>
             <ul class="tool-list">
               <li class="sunken"><b>Bitpack desktop</b><span>A retro desktop that starts every tool, in a single window.</span></li>
-              <li class="sunken"><b>Sticky Notes 95</b><span>Notes stuck on the screen, kept from one day to the next.</span></li>
+              <li class="sunken"><b>Sticky Notes</b><span>Notes stuck on the screen, kept from one day to the next.</span></li>
               <li class="sunken"><b>Mail Express</b><span>Send e-mail straight from Bitpack, with no other mail program.</span></li>
-              <li class="sunken"><b>Shift Planner 95</b><span>Monthly shift schedules with an hour-by-hour view, rule checks and export to Excel or PDF.</span></li>
+              <li class="sunken"><b>Shift Planner</b><span>Monthly shift schedules with an hour-by-hour view, rule checks and export to Excel or PDF.</span></li>
             </ul>
           </div>
           <p class="more">…and many more: over 100 tools in the same program.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECHNICAL -->
+  <section class="band" id="tech">
+    <div class="wrap">
+      <div class="window raised section-window">
+        <div class="titlebar"><span class="t">System Properties – Technical</span><span class="caption-btns" aria-hidden="true"><span class="raised">?</span><span class="raised">×</span></span></div>
+        <div class="window-body">
+          <h2>Under the hood</h2>
+          <p class="intro">What IT departments usually ask before they let a program on their PCs.</p>
+          <ul class="limits-general">
+            <li class="sunken"><b>One file, built with Python</b><span>A precompiled x64 Windows program. The libraries are inside: psutil (system data), Pillow (pictures), PyMuPDF and reportlab (PDF), python-docx, openpyxl and python-pptx (Office files), OpenCV (video).</span></li>
+            <li class="sunken"><b>One local database</b><span>SQLite, in Config/dbo_bitpack.db next to the Bitpack file. Each tool keeps its own tables there. Backup: copy the Config folder, or export the database.</span></li>
+            <li class="sunken"><b>Standard user, nothing installed</b><span>No administrator rights, no installer, no services, no drivers. Removing Bitpack means deleting its folder.</span></li>
+            <li class="sunken"><b>No Windows programs, no registry</b><span>Bitpack starts no Windows program and does not read the registry: system information comes from Python and psutil, and the terminal commands are answered by Bitpack itself.</span></li>
+            <li class="sunken"><b>Network only where needed</b><span>Only the tools that work with the network connect: the Network Monitor, the API Tool, Mail Express and copying from servers – and only to the addresses you give them.</span></li>
+            <li class="sunken"><b>Access per tool</b><span>Every tool opens with its own account, so each person gets only the tools they need.</span></li>
+            <li class="sunken"><b>Requirements</b><span>Windows 10 or 11, x64; 4 cores (or 2 cores with 4 threads), Intel Core 4th generation or AMD Ryzen; 4 GB RAM; 500 MB of disk. A built-in check verifies the PC.</span></li>
+            <li class="sunken"><b>Approved-programs policies</b><span>Where only approved programs may run (AppLocker, WDAC), the Bitpack file has to be approved once by IT.</span></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -647,36 +763,36 @@
             <li class="sunken"><b>English interface</b><span>Menus, windows and messages of the tools are in English.</span></li>
             <li class="sunken"><b>One login per tool</b><span>Each tool opens with its own account, so the accounts have to be set up before people start.</span></li>
             <li class="sunken"><b>Not a full Office replacement</b><span>Bitpack creates and reads Word, Excel, PowerPoint and PDF files, but it is not Word or Excel: macros and advanced formatting are not supported.</span></li>
-            <li class="sunken"><b>Some tools need a network</b><span>Sending e-mail and testing APIs need a connection. Everything else works offline.</span></li>
+            <li class="sunken"><b>Some tools need a network</b><span>Sending e-mail, testing APIs, the Network Monitor and copying from servers need a connection. Everything else works offline.</span></li>
             <li class="sunken"><b>One font</b><span>Each tool uses one built-in font; there is no font picker.</span></li>
-            <li class="sunken"><b>No Windows commands</b><span>Bitpack starts no Windows program (command prompt, PowerShell, wmic, netsh, powercfg, shutdown…). Common commands such as ping, ipconfig, dir or tasklist are answered by Bitpack itself; anything else is refused. That is also why there is no battery report.</span></li>
+            <li class="sunken"><b>No Windows commands</b><span>Bitpack starts no Windows program (command prompt, PowerShell, wmic, netsh, powercfg, shutdown…). Common commands such as ping, ipconfig, dir or tasklist are answered by Bitpack itself; anything else is refused.</span></li>
           </ul>
           <div class="limit-groups">
             <fieldset class="limit-group"><legend>Documents and PDF</legend>
               <div class="limit-tools">
-                <div class="limit-tool"><b>PDF Editor 95</b><ul><li>Scanned PDFs are pictures: their text cannot be edited (no text recognition).</li><li>Export to Word may not keep complex layouts exactly.</li></ul></div>
-                <div class="limit-tool"><b>Document Merge</b><ul><li>The template must be a Word .docx file with {{Field}} placeholders.</li><li>Data comes from Excel (.xlsx) or CSV files: one document per row.</li><li>Word output works on its own; PDF output needs Microsoft Word or LibreOffice on the computer.</li></ul></div>
-                <div class="limit-tool"><b>Batch PDF converter</b><ul><li>Word files get an evaluation watermark from the converter library.</li><li>Old formats (.xls, .ppt, .ods, .odp) are skipped: save them as .xlsx or .pptx first.</li><li>Excel sheets become tables; PowerPoint slides keep only an approximate layout.</li><li>Binary files are skipped; other text files are printed as plain text.</li></ul></div>
-                <div class="limit-tool"><b>Step Recorder 95</b><ul><li>Steps and documents are in English only.</li><li>Projects are saved in Bitpack's own .sr95 format; export to Word or PDF.</li></ul></div>
+                <div class="limit-tool"><b>PDF Editor</b><ul><li>Scanned PDFs are pictures: their text cannot be edited (no text recognition).</li><li>Export to Word may not keep complex layouts exactly.</li></ul></div>
+                <div class="limit-tool"><b>Document Merge</b><ul><li>The template must be a Word .docx file with {{Field}} placeholders.</li><li>Data comes from Excel (.xlsx) or CSV files: one document per row.</li><li>Word and PDF output both work without Office; complex Word layouts (text boxes, shapes) may look a little different in the PDF.</li></ul></div>
+                <div class="limit-tool"><b>Bulk PDF Converter</b><ul><li>Word files keep text, headings, lists, tables and pictures; text boxes, shapes, charts, SmartArt, footnotes and columns are not reproduced.</li><li>RTF and ODT files keep only the text and the headings.</li><li>Old formats (.doc, .xls, .ppt, .ods, .odp) are skipped: save them as .docx, .xlsx or .pptx first.</li><li>Excel sheets become tables; PowerPoint slides keep only an approximate layout.</li><li>Binary files are skipped; other text files are printed as plain text.</li></ul></div>
+                <div class="limit-tool"><b>Step Recorder</b><ul><li>Steps and documents are in English only.</li><li>Projects are saved in Bitpack's own .sr95 format; export to Word or PDF.</li></ul></div>
                 <div class="limit-tool"><b>Bitpack Office</b><ul><li>A lighter editor than Word and Excel: no macros and no advanced formatting.</li></ul></div>
-                <div class="limit-tool"><b>Advanced Notepad 95</b><ul><li>Plain text only: no bold text, pictures or tables.</li><li>One built-in font.</li></ul></div>
+                <div class="limit-tool"><b>Advanced Notepad</b><ul><li>Plain text only: no bold text, pictures or tables.</li><li>One built-in font.</li></ul></div>
               </div>
             </fieldset>
             <fieldset class="limit-group"><legend>Data and reports</legend>
               <div class="limit-tools">
-                <div class="limit-tool"><b>Excel Compare 95</b><ul><li>Both files need a common key column to match the rows.</li><li>The report is an Excel file.</li></ul></div>
-                <div class="limit-tool"><b>Chart Builder 95</b><ul><li>Data from Excel or CSV files.</li><li>Exported charts are files: they do not update when the data changes.</li></ul></div>
-                <div class="limit-tool"><b>Report Designer 95</b><ul><li>Data from SQL databases, Excel or CSV; output as PDF.</li><li>Report layouts are saved in Bitpack's own .rep95 format.</li></ul></div>
+                <div class="limit-tool"><b>Excel Compare</b><ul><li>Both files need a common key column to match the rows.</li><li>The report is an Excel file.</li></ul></div>
+                <div class="limit-tool"><b>Chart Builder</b><ul><li>Data from Excel or CSV files.</li><li>Exported charts are files: they do not update when the data changes.</li></ul></div>
+                <div class="limit-tool"><b>Report Designer</b><ul><li>Data from SQL databases, Excel or CSV; output as PDF.</li><li>Report layouts are saved in Bitpack's own .rep95 format.</li></ul></div>
                 <div class="limit-tool"><b>SQL Manager Studio Pro</b><ul><li>SQLite databases only (not SQL Server, MySQL or Oracle).</li></ul></div>
-                <div class="limit-tool"><b>Diagram Editor 95</b><ul><li>Opens and saves only its own .diagram95 files (no Visio or other diagram formats).</li></ul></div>
+                <div class="limit-tool"><b>Diagram Editor</b><ul><li>Opens and saves only its own .diagram95 files (no Visio or other diagram formats).</li></ul></div>
               </div>
             </fieldset>
             <fieldset class="limit-group"><legend>Images and video</legend>
               <div class="limit-tools">
-                <div class="limit-tool"><b>Video Editor 95</b><ul><li>Export to AVI keeps the sound, but the files are large (up to 4 GB per video).</li><li>Export to MP4 has no sound.</li><li>Music: MP3, WAV, OGG and FLAC (not M4A or WMA).</li><li>Some phone videos (HEVC / H.265) may not open.</li><li>The original sound of video clips is read through Windows and may not be available on every computer; the music always works.</li></ul></div>
-                <div class="limit-tool"><b>Paint 95</b><ul><li>One picture at a time, without layers, like the classic Paint.</li></ul></div>
+                <div class="limit-tool"><b>Video Editor</b><ul><li>Export to AVI keeps the sound, but the files are large (up to 4 GB per video).</li><li>Export to MP4 has no sound.</li><li>Music: MP3, WAV, OGG and FLAC (not M4A or WMA).</li><li>Some phone videos (HEVC / H.265) may not open.</li><li>The original sound of video clips is read through Windows and may not be available on every computer; the music always works.</li></ul></div>
+                <div class="limit-tool"><b>Paint</b><ul><li>One picture at a time, without layers, like the classic Paint.</li></ul></div>
                 <div class="limit-tool"><b>Batch image resizer</b><ul><li>Changes the size only: no cropping or retouching.</li><li>Overwriting the originals cannot be undone; saving to another folder keeps them.</li><li>JPG pictures lose a little quality at every save.</li></ul></div>
-                <div class="limit-tool"><b>Icon Editor 95</b><ul><li>Icons are drawn pixel by pixel: made for small icons, not for photos.</li></ul></div>
+                <div class="limit-tool"><b>Icon Editor</b><ul><li>Icons are drawn pixel by pixel: made for small icons, not for photos.</li></ul></div>
                 <div class="limit-tool"><b>ICO Converter</b><ul><li>Produces Windows .ico icons only.</li></ul></div>
               </div>
             </fieldset>
@@ -689,20 +805,22 @@
             </fieldset>
             <fieldset class="limit-group"><legend>For IT</legend>
               <div class="limit-tools">
-                <div class="limit-tool"><b>Code Beautify 95</b><ul><li>XML, HTML, CSS, JavaScript, JSON and SQL only.</li></ul></div>
+                <div class="limit-tool"><b>Code Beautify</b><ul><li>XML, HTML, CSS, JavaScript, JSON and SQL only.</li></ul></div>
                 <div class="limit-tool"><b>API tester</b><ul><li>No AWS Signature or NTLM authentication.</li><li>Needs a network connection.</li></ul></div>
                 <div class="limit-tool"><b>File compare</b><ul><li>Text files only (not Word, Excel or PDF).</li></ul></div>
-                <div class="limit-tool"><b>BuildIt 95</b><ul><li>Builds Python (tkinter) program interfaces only.</li></ul></div>
-                <div class="limit-tool"><b>Bitpack terminals</b><ul><li>Only the commands HELP lists: no pipes, redirection, scripts or other programs.</li><li>Commands answer in English, as on an English Windows.</li></ul></div>
-                <div class="limit-tool"><b>AI Assistant</b><ul><li>Answers from a fixed list of commands; it is not a chat AI.</li><li>Saved Wi-Fi passwords are shown only with administrator rights.</li><li>Restart, shut down and log out happen right after you confirm.</li></ul></div>
+                <div class="limit-tool"><b>BuildIt</b><ul><li>Builds Python (tkinter) program interfaces only.</li></ul></div>
+                <div class="limit-tool"><b>Bitpack Terminal</b><ul><li>Only the commands HELP lists: no pipes, redirection, scripts or other programs.</li><li>No tracert or arp; ipconfig shows no gateway or DNS servers.</li><li>PING checks the usual services of a device: one that answers on none of them (a phone, a PC with a strict firewall) shows "Request timed out" even when it is on – PING -p with a port it has open checks it.</li><li>Commands answer in English, as on an English Windows.</li></ul></div>
+                <div class="limit-tool"><b>AI Assistant</b><ul><li>Answers from a fixed list of commands; it is not a chat AI.</li></ul></div>
+                <div class="limit-tool"><b>Network Monitor and Port Scanner</b><ul><li>Watches the devices and services you add (one by one or from a list); it does not discover the network by itself.</li><li>The checks run while the Network Monitor is open; it is not a Windows service.</li><li>Web checks connect directly, not through a proxy.</li><li>No agents and no SNMP: it checks what answers on the network (TCP ports, web pages, DNS).</li><li>The Port Scanner scans one device at a time; ports behind a firewall that drops packets show as "no answer".</li></ul></div>
+                <div class="limit-tool"><b>Ticket System</b><ul><li>Tickets live in the database of that Bitpack copy: no web portal for the end users.</li></ul></div>
               </div>
             </fieldset>
             <fieldset class="limit-group"><legend>Everyday</legend>
               <div class="limit-tools">
                 <div class="limit-tool"><b>Bitpack desktop</b><ul><li>Starts the Bitpack tools; it does not replace the Windows desktop or start other programs.</li></ul></div>
-                <div class="limit-tool"><b>Sticky Notes 95</b><ul><li>Notes are kept on that computer only.</li></ul></div>
+                <div class="limit-tool"><b>Sticky Notes</b><ul><li>Notes are kept on that computer only.</li></ul></div>
                 <div class="limit-tool"><b>Mail Express</b><ul><li>Needs a network connection and an e-mail account.</li></ul></div>
-                <div class="limit-tool"><b>Shift Planner 95</b><ul><li>One shift per person per day.</li><li>Public holidays are not built in: you add your own once and copy them to the next year.</li><li>It checks rest, days in a row, weekly hours and staffing; it does not calculate pay.</li><li>Plans are exported as Excel or PDF; they cannot be read back from those files.</li></ul></div>
+                <div class="limit-tool"><b>Shift Planner</b><ul><li>One shift per person per day.</li><li>Public holidays are not built in: you add your own once and copy them to the next year.</li><li>It checks rest, days in a row, weekly hours and staffing; it does not calculate pay.</li><li>Plans are exported as Excel or PDF; they cannot be read back from those files.</li></ul></div>
               </div>
             </fieldset>
           </div>
@@ -735,13 +853,15 @@
         <div class="titlebar"><span class="t">Frequently asked questions</span><span class="caption-btns" aria-hidden="true"><span class="raised">?</span><span class="raised">×</span></span></div>
         <div class="window-body">
           <h2>Frequently asked questions</h2>
-          <details class="raised"><summary>Where do I get Bitpack?</summary><div class="answer">Download <a href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/Bitpack.exe">Bitpack.exe</a> (Windows 64-bit). It is the whole program: copy it to any folder and run it.</div></details>
+          <details class="raised"><summary>Where do I get Bitpack?</summary><div class="answer">Download <a href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/Bitpack.exe">the Bitpack file</a> (Windows 64-bit). It is the whole program: copy it to any folder and run it.</div></details>
           <details class="raised"><summary>Does anything need to be installed?</summary><div class="answer">No. Bitpack is a single precompiled file for Windows 64-bit. Copy it to the computer and run it.</div></details>
           <details class="raised"><summary>Do I need administrator rights?</summary><div class="answer">No. Every tool works on a normal user account.</div></details>
           <details class="raised"><summary>Does Bitpack run Windows commands or scripts?</summary><div class="answer">No. Bitpack starts no Windows program: no command prompt, no PowerShell, no scripts. The commands its terminals and tools need (ping, ipconfig, tasklist, systeminfo and others) are answered by Bitpack itself, so it also works where the company blocks the command prompt and PowerShell.</div></details>
-          <details class="raised"><summary>Do I need Microsoft Office?</summary><div class="answer">No. Bitpack creates and reads Word, Excel, PowerPoint and PDF documents by itself, without Office installed. The one exception is the PDF output of Document Merge, which needs Word or LibreOffice.</div></details>
+          <details class="raised"><summary>Do I need Microsoft Office?</summary><div class="answer">No. Bitpack creates and reads Word, Excel, PowerPoint and PDF documents by itself, without Office installed.</div></details>
           <details class="raised"><summary>Where is the data kept?</summary><div class="answer">In a local database in the program's folder, on your computer. Projects, settings and history are not uploaded to a cloud.</div></details>
-          <details class="raised"><summary>Does it work without the internet?</summary><div class="answer">Yes, except the tools that really work with a network: sending e-mail and testing APIs.</div></details>
+          <details class="raised"><summary>Does it work without the internet?</summary><div class="answer">Yes, except the tools that really work with a network: sending e-mail, testing APIs, the Network Monitor and copying from servers.</div></details>
+          <details class="raised"><summary>Can Bitpack replace our monitoring system?</summary><div class="answer">For a small or medium network, the Network Monitor covers the everyday checks: shares, remote desktop, databases, printers, cameras, web pages, certificates and DNS, with uptime and alerts on screen. It is not an enterprise monitoring system: no agents on the servers, no SNMP, no automatic discovery, and it checks while it is open.</div></details>
+          <details class="raised"><summary>Will it run on our locked-down PCs?</summary><div class="answer">Yes, on standard user accounts and where the command prompt and PowerShell are blocked. If the company allows only approved programs (AppLocker, WDAC), the Bitpack file has to be approved once by IT.</div></details>
           <details class="raised"><summary>Why does it look like Windows 95?</summary><div class="answer">Because the classic interface is clear and easy to learn: windows, menus and buttons that everybody recognizes. Every tool uses it the same way.</div></details>
         </div>
       </div>
@@ -758,10 +878,10 @@
           <div>
             <h2 id="contact-title">Want to see Bitpack at work?</h2>
             <p>We will show you the tools your team needs, on your own computers, just as they are. Or download it and try it yourself.</p>
+            <p class="mail">Write to <a href="mailto:tudor16mn@gmail.com?subject=Bitpack">tudor16mn@gmail.com</a></p>
             <div class="actions">
-              <!-- Replace address@company.com with the real contact address -->
               <a class="btn raised default" href="mailto:tudor16mn@gmail.com?subject=Bitpack%20demo">Request a demo</a>
-              <a class="btn raised download" href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/Bitpack.exe"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="12" width="14" height="3" fill="#808080" stroke="#000"/><path d="M6 1h4v6h3l-5 5-5-5h3z" fill="#008000" stroke="#000"/></svg>Download Bitpack.exe</a>
+              <a class="btn raised download" href="https://github.com/TudorMarmureanu/muap.ro/releases/download/Download/Bitpack.exe"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="12" width="14" height="3" fill="#808080" stroke="#000"/><path d="M6 1h4v6h3l-5 5-5-5h3z" fill="#008000" stroke="#000"/></svg>Download Bitpack</a>
             </div>
           </div>
         </div>
@@ -796,33 +916,33 @@
 
   // Hero: the icons open their window
   var TOOLS = {
-    video: ["Video Editor 95", "Presentation videos without expensive editing software",
+    video: ["Video Editor", "Presentation videos without expensive editing software",
       "Put clips, photos and titles on a timeline, add transitions, effects, text and stickers that come and go, then music from the computer.",
       "Anyone on the team can make a video for a presentation, a training or a promotion – the same day."],
-    pdf: ["PDF Editor 95", "Change a PDF without rebuilding it from scratch",
+    pdf: ["PDF Editor", "Change a PDF without rebuilding it from scratch",
       "Work directly on the PDF inside Bitpack, and when you need it editable, export it to Word.",
       "Company documents no longer go through conversion websites, and nobody needs a paid PDF editor of their own."],
     merge: ["Document Merge", "Hundreds of personalized documents in one go",
       "Make the template once in Word; the data comes from an Excel or CSV table. Bitpack writes one document for every row, in Word or PDF.",
       "Contracts, certificates, letters or labels ready in minutes, with no copy and paste and no typing mistakes."],
-    shift: ["Shift Planner 95", "The team's schedule for the month, with the rules checked for you",
+    shift: ["Shift Planner", "The team's schedule for the month, with the rules checked for you",
       "Type a shift code in a day and Bitpack moves to the next one; patterns fill a whole month. The hours view shows who is at work, hour by hour, and Bitpack flags too little rest between shifts, too many days in a row, too many hours in a week and shifts with too few people.",
       "A schedule that keeps to the rules is ready in an afternoon and goes out as Excel or PDF – no spreadsheet full of formulas."],
-    excel: ["Excel Compare 95", "See at once what changed between two exports",
+    excel: ["Excel Compare", "See at once what changed between two exports",
       "Pick two Excel or CSV files and the column that matches their rows. You get an Excel report of what was added, what disappeared and what changed.",
       "Checking stock, prices or lists no longer means hours of comparing by eye."],
-    report: ["Report Designer 95", "Good-looking reports from the data you already have",
+    report: ["Report Designer", "Good-looking reports from the data you already have",
       "Lay out the header, the rows and the totals in bands; the data comes from a database, Excel or CSV. The result is a PDF ready to send.",
       "The same report, rebuilt at any time with new data, without formatting it again."],
-    steps: ["Step Recorder 95", "Procedures that write themselves, with screenshots",
-      "Press F9 at every step: Bitpack takes the screenshot, you add arrows and notes and blur sensitive data. At the end you have the document in Word or PDF.",
+    steps: ["Step Recorder", "Procedures that write themselves, with screenshots",
+      "Press F9 at every step (or let Bitpack capture in 3 seconds, to catch an open menu): you add arrows and notes and blur sensitive data. At the end you have the document in Word or PDF.",
       "Training new colleagues and documenting processes takes minutes, not days."],
-    chart: ["Chart Builder 95", "Clear charts from any table",
+    chart: ["Chart Builder", "Clear charts from any table",
       "Load an Excel or CSV file, pick the chart type and export it as a picture, PDF, PowerPoint, Word or Excel.",
       "Presentations and monthly reports get clean charts without depending on Office."],
-    paint: ["Paint 95", "Quick touch-ups without a complicated graphics program",
-      "Crop, draw, write and highlight on pictures, in an interface everybody already knows.",
-      "Screenshots, simple posters and pictures for documents are sorted on the spot."]
+    net: ["Network Monitor", "Know a service is down before the users call",
+      "Add the servers, printers, web pages and DNS names that matter and the service to watch on each: shares, remote desktop, SQL Server, printers, cameras. Bitpack checks them all the time and shows Up, Warning or Down, the response time and the uptime; its Port Scanner finds the open ports of a device.",
+      "A share that stops answering, a printer off the network or a certificate about to expire shows up on screen, with a beep - and goes into a report for Excel."]
   };
   var icons = document.querySelectorAll(".icon");
   var title = document.getElementById("tw-title");
